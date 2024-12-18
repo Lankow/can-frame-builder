@@ -1,0 +1,82 @@
+﻿<Window x:Class="CanFrameBuilder.View.CANFrameModal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CanFrameBuilder.View"
+        mc:Ignorable="d"
+        Title="Manage CAN Frame" Height="520" Width="800">
+    <Grid>
+        <!-- Grid Definition Start -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="145"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <!-- Grid Definition End -->
+        
+        <!-- CAN Frame Name and ID Start-->
+        <StackPanel>
+            <TextBlock Margin="10">Name</TextBlock>
+            <TextBox Name ="FrameNameInput" Margin="5" Text="{Binding FrameName}"/>
+            <TextBlock Margin="10">Frame ID</TextBlock>
+            <TextBox Name="FrameIdInput" PreviewTextInput="NumberValidationTextBox" 
+                       Text="{Binding FrameId}" Margin="5"/>
+        </StackPanel>
+        <!-- CAN Frame Name and ID End -->
+        
+        <!-- Signals Edition Start-->
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <StackPanel>
+                <Button Name="AddSignalBtn" Command="{Binding AddCommand}" Width="130" Height="25"
+                        Margin="5" Content="Add New Signal"/>
+                <Button Name="RemoveSignalBtn" Command="{Binding DeleteCommand}" Width="130" Height="25"
+                        Margin="5" Content="Delete Signal"/>
+                <Button Name="ClearSignalBtn" Command="{Binding ClearCommand}" Width="130" Height="25"
+                        Margin="5" Content="Clear Signal"/>
+            </StackPanel>
+            <StackPanel>
+                <Label Content="Name"/>
+                <TextBox Text="{Binding SelectedItem.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Content="LSB"/>
+                <TextBox PreviewTextInput="NumberValidationTextBox" 
+                           Text="{Binding SelectedItem.LSB, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Content="MSB"/>
+                <TextBox PreviewTextInput="NumberValidationTextBox" 
+                           Text="{Binding SelectedItem.MSB, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Content="Bit Count"/>
+                <TextBox PreviewTextInput="NumberValidationTextBox" 
+                           Text="{Binding SelectedItem.BitCount, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Content="Default Value"/>
+                <TextBox PreviewTextInput="NumberValidationTextBox" 
+                           Text="{Binding SelectedItem.DefaultValue, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+        </StackPanel>
+        <DataGrid ItemsSource="{Binding Signals}" SelectionMode="Single" SelectedItem="{Binding SelectedItem}"
+                  CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False"
+                  Grid.Row="1" Grid.Column="0" Margin="5">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="4*"/>
+                <DataGridTextColumn Header="LSB" Binding="{Binding LSB}" Width="1*"/>
+                <DataGridTextColumn Header="MSB" Binding="{Binding MSB}" Width="1*"/>
+                <DataGridTextColumn Header="Bit Count" Binding="{Binding BitCount}" Width="2*"/>
+                <DataGridTextColumn Header="Default Value" Binding="{Binding DefaultValue}" Width="2*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <!-- Signals Edition End -->
+
+        <!-- Modal Buttons Start-->
+        <StackPanel Grid.Row="0" Grid.Column="1" Margin="0, 30, 0, 0">
+            <Button Name="SubmitFrameBtn" Width="120" Height="30" Click="SubmitFrameBtn_OnClick" Margin="10">
+                Submit
+            </Button>
+            <Button Name="CancelFrameBtn" Width="120" Height="30" Click="CancelFrameBtn_OnClick" Margin="10">
+                Cancel
+            </Button>
+        </StackPanel>
+        <!-- Modal Buttons End -->
+    </Grid>
+</Window>
