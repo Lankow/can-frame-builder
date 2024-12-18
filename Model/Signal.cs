@@ -1,11 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CanFrameBuilder.Model
 {
+    public enum ByteOrder
+    {
+        [Description("")]
+        NOT_SET = 0,
+        [Description("Intel")]
+        INTEL,
+        [Description("Motorola")]
+        MOTOROLA
+    }
+
     public class Signal
     {
         public string? Name { get; set; }
@@ -13,5 +24,6 @@ namespace CanFrameBuilder.Model
         public short MSB { get; set; }
         public short BitCount { get; set; }
         public byte DefaultValue { get; set; }
+        public ByteOrder ByteOrder { get; set; }
     }
 }
