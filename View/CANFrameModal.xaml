@@ -7,7 +7,7 @@
         xmlns:model="clr-namespace:CanFrameBuilder.Model"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="Manage CAN Frame" Height="570" Width="800">
+        Title="Manage CAN Frame" Height="720" Width="630">
 
     <!-- Definition Byte Order Enum Start -->
     <Window.Resources>
@@ -22,7 +22,7 @@
     <Grid>
         <!-- Grid Definition Start -->
         <Grid.RowDefinitions>
-            <RowDefinition Height="145"/>
+            <RowDefinition Height="290"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -38,6 +38,12 @@
             <TextBlock Margin="10">Frame ID</TextBlock>
             <TextBox Name="FrameIdInput" PreviewTextInput="NumberValidationTextBox" 
                        Text="{Binding FrameId}" Margin="5"/>
+            <TextBlock Margin="10">Frame DLC</TextBlock>
+            <TextBox Name="FrameDlcInput" PreviewTextInput="NumberValidationTextBox" 
+                       Text="{Binding FrameDlc}" Margin="5"/>
+            <TextBlock Margin="10">Frame Channel</TextBlock>
+            <TextBox Name="FrameChannelInput" PreviewTextInput="NumberValidationTextBox" 
+                       Text="{Binding FrameChannel}" Margin="5"/>
         </StackPanel>
         <!-- CAN Frame Name and ID End -->
         
@@ -53,26 +59,26 @@
             </StackPanel>
             <StackPanel>
                 <Label Content="Name"/>
-                <TextBox Text="{Binding SelectedItem.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Text="{Binding SelectedItem.Name, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
                 <Label Content="LSB"/>
                 <TextBox PreviewTextInput="NumberValidationTextBox" 
-                           Text="{Binding SelectedItem.LSB, UpdateSourceTrigger=PropertyChanged}"/>
+                           Text="{Binding SelectedItem.LSB, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
                 <Label Content="MSB"/>
                 <TextBox PreviewTextInput="NumberValidationTextBox" 
-                           Text="{Binding SelectedItem.MSB, UpdateSourceTrigger=PropertyChanged}"/>
+                           Text="{Binding SelectedItem.MSB, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
                 <Label Content="Bit Count"/>
                 <TextBox PreviewTextInput="NumberValidationTextBox" 
-                           Text="{Binding SelectedItem.BitCount, UpdateSourceTrigger=PropertyChanged}"/>
+                           Text="{Binding SelectedItem.BitCount, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
                 <Label Content="Byte Order"/>
-                <ComboBox SelectedIndex="{Binding SelectedItem.ByteOrder, Mode=TwoWay}" ItemsSource="{Binding Source={StaticResource byteOrderEnum}}"/>
+                <ComboBox SelectedValue="{Binding SelectedItem.ByteOrder}" ItemsSource="{Binding Source={StaticResource byteOrderEnum}}" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
                 <Label Content="Default Value"/>
                 <TextBox PreviewTextInput="NumberValidationTextBox" 
-                           Text="{Binding SelectedItem.DefaultValue, UpdateSourceTrigger=PropertyChanged}"/>
+                           Text="{Binding SelectedItem.DefaultValue, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
             </StackPanel>
         </StackPanel>
         <DataGrid ItemsSource="{Binding Signals}" SelectionMode="Single" SelectedItem="{Binding SelectedItem}"
                   CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False"
-                  Grid.Row="1" Grid.Column="0" Margin="5">
+                  Grid.Row="1" Grid.Column="0" Margin="5,5,5,0">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="3*"/>
                 <DataGridTextColumn Header="LSB" Binding="{Binding LSB}" Width="1*"/>

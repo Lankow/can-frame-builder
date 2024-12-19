@@ -9,12 +9,9 @@ namespace CanFrameBuilder.Model
 {
     public enum ByteOrder
     {
-        [Description("")]
-        NOT_SET = 0,
-        [Description("Intel")]
-        INTEL,
-        [Description("Motorola")]
-        MOTOROLA
+        Default = 0,
+        Intel,
+        Motorola
     }
 
     public class Signal

@@ -74,13 +74,16 @@ namespace CanFrameBuilder
 
         private void BtnPickOutputPath_OnClick(object sender, RoutedEventArgs e)
         {
-            var dialog = new OpenFolderDialog();
-            dialog.InitialDirectory = _outputDirectory;
+            var dialog = new OpenFolderDialog
+            {
+                InitialDirectory = _outputDirectory
+            };
 
             var result = dialog.ShowDialog();
 
             if (result != true) return;
-            // TODO: Handling
+
+            _outputDirectory = dialog.FolderName;
         }
 
         private void BtnAddFrame_OnClick(object sender, RoutedEventArgs e)
@@ -92,9 +95,11 @@ namespace CanFrameBuilder
 
             var frameName = canFrameModal.FrameName;
             var frameId = canFrameModal.FrameId;
+            var frameDlc = canFrameModal.FrameDlc;
+            var frameChannel = canFrameModal.FrameChannel;
             var signals = canFrameModal.Signals;
 
-            Entries.Add(new CANFrame(frameName, frameId, [.. signals]));
+            Entries.Add(new CANFrame(frameName, frameId, frameDlc, frameChannel, [.. signals]));
         }
 
         private void BtnEditFrame_OnClick(object sender, RoutedEventArgs e)
@@ -109,10 +114,12 @@ namespace CanFrameBuilder
 
             var frameName = canFrameModal.FrameName;
             var frameId = canFrameModal.FrameId;
+            var frameDlc = canFrameModal.FrameDlc;
+            var frameChannel = canFrameModal.FrameChannel;
             var signals = canFrameModal.Signals;
 
             int selectedItemIndex = Entries.IndexOf(selectedItem);
-            Entries[selectedItemIndex] = new CANFrame(frameName, frameId, [.. signals]);
+            Entries[selectedItemIndex] = new CANFrame(frameName, frameId, frameDlc, frameChannel, [.. signals]);
         }
 
         private void BtnDeleteFrame_OnClick(object sender, RoutedEventArgs e)

@@ -15,7 +15,7 @@ namespace CanFrameBuilder.ViewModel
 
         public RelayCommand AddCommand => new(execute => AddSignal());
         public RelayCommand DeleteCommand => new(execute => DeleteSignal(), canExecute => _selectedItem != null);
-        public RelayCommand ClearCommand => new(execute => AddSignal());
+        public RelayCommand ClearCommand => new(execute => ClearSignal(), canExecute => Signals.Count > 0);
 
         public CANFrameModalViewModel(CANFrame? canFrame)
         {
@@ -23,8 +23,10 @@ namespace CanFrameBuilder.ViewModel
 
             FrameName = canFrame.Name;
             FrameId = canFrame.Id;
+            FrameDlc = canFrame.Dlc;
+            FrameChannel = canFrame.Channel;
 
-            foreach(var signal in canFrame.Signals)
+            foreach (var signal in canFrame.Signals)
             {
                 Signals.Add(signal);
             }
@@ -32,6 +34,8 @@ namespace CanFrameBuilder.ViewModel
 
         public string? FrameName { get; set; } = "";
         public int FrameId { get; set; } = 0;
+        public int FrameDlc { get; set; } = 0;
+        public int FrameChannel { get; set; } = 0;
 
         private Signal? _selectedItem = null;
 

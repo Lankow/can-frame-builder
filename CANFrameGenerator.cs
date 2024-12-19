@@ -11,6 +11,9 @@ namespace CanFrameBuilder
 {
     internal class CANFrameGenerator
     {
+
+        private const string CANoeImportString = "";
+
         internal static void GenerateClasses(List<CANFrame> canFrames, string outputDirectory)
         {
             foreach (var canFrame in canFrames)
@@ -18,7 +21,7 @@ namespace CanFrameBuilder
                 try
                 {
                     var filePath = Path.Combine(outputDirectory, $"{canFrame.Name}.cs");
-                    var classContent = GenerateClassContent(canFrame);
+                    var classContent = GenerateClassContent(canFrame); 
 
                     File.WriteAllText(filePath, classContent);
                 }
@@ -26,14 +29,24 @@ namespace CanFrameBuilder
                 {
                     MessageBox.Show($"Encountered error during {canFrame.Name} Generation." +
                         $" Error: {ex.Message}", "Generation ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
                 }
             }
+
+            MessageBox.Show($"Finished generation for {canFrames.Count} item(s).", "Generation Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private static string GenerateClassContent(CANFrame canFrame)
         {
-            var classContent = $"\tpublic class {canFrame.Name} : CANFrame";
+            var classContent = string.Empty;
+
+            classContent += CANoeImportString;
+            classContent += $"\tpublic class {canFrame.Name} : CANFrame\n\t\t{{\n";
+
             
+
+            classContent += "}";
+
             return classContent;
         }
     }

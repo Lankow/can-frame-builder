@@ -22,6 +22,8 @@ namespace CanFrameBuilder.View
     {
         public string FrameName => (DataContext as CANFrameModalViewModel)?.FrameName ?? "";
         public int FrameId => (DataContext as CANFrameModalViewModel)?.FrameId ??  0;
+        public int FrameDlc => (DataContext as CANFrameModalViewModel)?.FrameDlc ??  0;
+        public int FrameChannel => (DataContext as CANFrameModalViewModel)?.FrameChannel ??  0;
         public ObservableCollection<Signal> Signals => (DataContext as CANFrameModalViewModel)?.Signals ?? new ObservableCollection<Signal>();
 
         public bool Success { get; private set; }

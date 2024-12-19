@@ -22,8 +22,10 @@
         <ListView Grid.Row="0" Grid.Column="0" Name="FrameEntries" ItemsSource="{Binding Entries}" Margin="10">
             <ListView.View>
                 <GridView ColumnHeaderToolTip="CAN Frames">
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="CAN Frame Name" Width="160"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" Header="CAN Frame ID" Width="130"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="CAN Frame Name" Width="130"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" Header="ID" Width="50"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Dlc}" Header="DLC" Width="50"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Channel}" Header="Channel" Width="50"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Signals.Count}" Header="Signals Amount" Width="130"/>
                 </GridView>
             </ListView.View>
@@ -42,7 +44,7 @@
                 Delete CAN Frame
             </Button>
             <Button Name="BtnClearFrames" Width="120" Height="30" Click="BtnClearFrames_OnClick" Margin="10">
-                Delete CAN Frame
+                Clear CAN Frames
             </Button>
         </StackPanel>
         <!-- CAN Frames List Buttons End-->
@@ -50,7 +52,7 @@
         <!-- Setup Panel Start -->
         <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
             <Button Name="BtnLoadConfig" Width="100" Height="30" Click="BtnLoadConfig_OnClick" Margin="10" Content="Load Config File" />
-            <Button Name="BtnSaveConfig" Width="100" Height="30" Click="BtnSaveConfig_OnClick" Margin="10" Content="SaveConfig File" />
+            <Button Name="BtnSaveConfig" Width="100" Height="30" Click="BtnSaveConfig_OnClick" Margin="10" Content="Save Config File" />
             <Button Name="BtnPickOutputPath" Width="120" Height="30" Click="BtnPickOutputPath_OnClick" Margin="10" Content="Pick Output Folder" />
         </StackPanel>
         <!-- Setup Panel End-->
