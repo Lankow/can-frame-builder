@@ -38,14 +38,21 @@ namespace CanFrameBuilder
 
         private static string GenerateClassContent(CANFrame canFrame)
         {
-            var classContent = string.Empty;
+            var sb = new StringBuilder();
 
-            classContent += CANoeImportString;
-            classContent += $"\tpublic class {canFrame.Name} : CANFrame\n\t\t{{\n";
-
+            sb.AppendLine(CANoeImportString);
+            sb.AppendLine($"\tpublic class {canFrame.Name} : CANFrame");
+            sb.AppendLine("{");
             
+            foreach(var signal in canFrame.Signals)
+            {
+                var signalFieldStr = $"[Signal(LSB = {signal.LSB}, BitCount = {signal.BitCount})]public byte {signal.Name} = {signal.DefaultValue};";
+                sb.AppendLine(signalFieldStr);
+            }
 
-            classContent += "}";
+            sb.AppendLine("}");
+
+            var classContent = sb.ToString();
 
             return classContent;
         }

@@ -1,42 +1,31 @@
 ﻿using CanFrameBuilder.Model;
 using CanFrameBuilder.ViewModel;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace CanFrameBuilder.View
 {
     public partial class CANFrameModal : Window
     {
         public string FrameName => (DataContext as CANFrameModalViewModel)?.FrameName ?? "";
-        public int FrameId => (DataContext as CANFrameModalViewModel)?.FrameId ??  0;
-        public int FrameDlc => (DataContext as CANFrameModalViewModel)?.FrameDlc ??  0;
-        public int FrameChannel => (DataContext as CANFrameModalViewModel)?.FrameChannel ??  0;
+        public int FrameId => (DataContext as CANFrameModalViewModel)?.FrameId ?? 0;
+        public int FrameDlc => (DataContext as CANFrameModalViewModel)?.FrameDlc ?? 0;
+        public int FrameChannel => (DataContext as CANFrameModalViewModel)?.FrameChannel ?? 0;
         public ObservableCollection<Signal> Signals => (DataContext as CANFrameModalViewModel)?.Signals ?? new ObservableCollection<Signal>();
 
         public bool Success { get; private set; }
+
         public CANFrameModal(CANFrame? canFrame = null)
         {
             InitializeComponent();
-            var vm = new CANFrameModalViewModel(canFrame);
-            DataContext = vm;
+            DataContext = new CANFrameModalViewModel(canFrame);
         }
 
         private void SubmitFrameBtn_OnClick(object sender, RoutedEventArgs e)
         {
-            if(ValidateFrame())
+            if (ValidateFrame())
             {
                 Success = true;
                 Close();
@@ -50,14 +39,93 @@ namespace CanFrameBuilder.View
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
-            var regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
+            e.Handled = !IsNumeric(e.Text);
         }
 
+        private static bool IsNumeric(string input)
+        {
+            var regex = new Regex("^[0-9]+$");
+            return regex.IsMatch(input);
+        }
         private bool ValidateFrame()
         {
-            // Frame Validation Performed Here
+            if (!ValidateFrameName(FrameName) ||
+                !ValidateRange(FrameId, 0, int.MaxValue, "Frame ID") ||
+                !ValidateRange(FrameDlc, 1, short.MaxValue, "Frame DLC") ||
+                !ValidateRange(FrameChannel, 0, short.MaxValue, "Frame Channel") ||
+                !ValidateSignals(Signals))
+            {
+                return false;
+            }
+
             return true;
+        }
+
+        private static bool ValidateFrameName(string name)
+        {
+            if (!IsVariableName(name))
+            {
+                ShowErrorWindow("Frame name shall include only characters valid for a class name in C#.");
+                return false;
+            }
+            return true;
+        }
+
+        private static bool IsVariableName(string input)
+        {
+            var regex = new Regex(@"^[_a-zA-Z][_a-zA-Z0-9]*$");
+            return regex.IsMatch(input);
+        }
+
+        private static bool ValidateRange<T>(T value, T minValue, T maxValue, string fieldName) where T : IComparable<T>
+        {
+            if (!IsWithinRange(value, minValue, maxValue))
+            {
+                ShowErrorWindow($"{fieldName} value shall be between {minValue} and {maxValue}.");
+                return false;
+            }
+            return true;
+        }
+
+        private static bool IsWithinRange<T>(T input, T minValue, T maxValue) where T : IComparable<T>
+        {
+            return input.CompareTo(minValue) >= 0 && input.CompareTo(maxValue) <= 0;
+        }
+
+        private static bool ValidateSignals(ObservableCollection<Signal> signals)
+        {
+            foreach (var signal in signals)
+            {
+                if (!ValidateSignal(signal))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private static bool ValidateSignal(Signal signal)
+        {
+            if (signal.Name == null || !IsVariableName(signal.Name))
+            {
+                ShowErrorWindow("Signal Name shall include only characters valid for a class name in C#.");
+                return false;
+            }
+
+            if (!ValidateRange(signal.LSB, 0, byte.MaxValue, "Signal LSB") ||
+                !ValidateRange(signal.MSB, 0, byte.MaxValue, "Signal MSB") ||
+                !ValidateRange(signal.BitCount, 0, byte.MaxValue, "Signal Bit Count") ||
+                !ValidateRange(signal.DefaultValue, 0, byte.MaxValue, "Signal Default Value"))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private static void ShowErrorWindow(string errorMessage)
+        {
+            MessageBox.Show(errorMessage, "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
     }
 }
