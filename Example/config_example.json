@@ -1,0 +1,98 @@
+[
+  {
+    "Name": "EngineStatus",
+    "Id": 23,
+    "Dlc": 8,
+    "Channel": 1,
+    "Signals": [
+      {
+        "Name": "EngineRPM",
+        "LSB": 0,
+        "MSB": 15,
+        "BitCount": 16,
+        "DefaultValue": 0,
+        "ByteOrder": 0
+      },
+      {
+        "Name": "EngineTemp",
+        "LSB": 16,
+        "MSB": 23,
+        "BitCount": 8,
+        "DefaultValue": 20,
+        "ByteOrder": 0
+      },
+      {
+        "Name": "FuelLevel",
+        "LSB": 24,
+        "MSB": 31,
+        "BitCount": 8,
+        "DefaultValue": 50,
+        "ByteOrder": 0
+      }
+    ]
+  },
+  {
+    "Name": "VehicleControl",
+    "Id": 562,
+    "Dlc": 8,
+    "Channel": 2,
+    "Signals": [
+      {
+        "Name": "BrakePressure",
+        "LSB": 0,
+        "MSB": 11,
+        "BitCount": 12,
+        "DefaultValue": 0,
+        "ByteOrder": 1
+      },
+      {
+        "Name": "SteeringAngle",
+        "LSB": 12,
+        "MSB": 27,
+        "BitCount": 16,
+        "DefaultValue": 0,
+        "ByteOrder": 1
+      },
+      {
+        "Name": "AccelerationRequest",
+        "LSB": 28,
+        "MSB": 35,
+        "BitCount": 8,
+        "DefaultValue": 0,
+        "ByteOrder": 2
+      }
+    ]
+  },
+  {
+    "Name": "ClimateControl",
+    "Id": 733,
+    "Dlc": 8,
+    "Channel": 3,
+    "Signals": [
+      {
+        "Name": "CabinTemperature",
+        "LSB": 0,
+        "MSB": 7,
+        "BitCount": 8,
+        "DefaultValue": 22,
+        "ByteOrder": 1
+      },
+      {
+        "Name": "FanSpeed",
+        "LSB": 8,
+        "MSB": 11,
+        "BitCount": 4,
+        "DefaultValue": 1,
+        "ByteOrder": 0
+      },
+      {
+        "Name": "AirflowDirection",
+        "LSB": 12,
+        "MSB": 15,
+        "BitCount": 4,
+        "DefaultValue": 0,
+        "ByteOrder": 0
+      }
+    ]
+  }
+]

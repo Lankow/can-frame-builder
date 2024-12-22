@@ -1,7 +1,9 @@
 ﻿using CanFrameBuilder.Model;
 using CanFrameBuilder.View;
 using Microsoft.Win32;
+using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,10 +20,7 @@ namespace CanFrameBuilder
     public partial class MainWindow : Window
     {
         public ObservableCollection<CANFrame> Entries { get; set; }
-
-        private const string DefaultDirectory = "C:\\";
-        private string _inputDirectory = DefaultDirectory;
-        private string _outputDirectory = DefaultDirectory;
+        private string _outputDirectory;
 
         public MainWindow()
         {
@@ -35,7 +34,7 @@ namespace CanFrameBuilder
             var fileDialog = new OpenFileDialog
             {
                 Filter = "JSON Config Files | *.json",
-                InitialDirectory = _inputDirectory,
+                InitialDirectory = Directory.GetCurrentDirectory(),
                 Title = "Pick CAN Frames JSON config file"
             };
 
@@ -44,9 +43,7 @@ namespace CanFrameBuilder
             if (sucess != true) return;
 
             var configFilePath = fileDialog.FileName;
-
-            _inputDirectory = configFilePath;
-            var canFrames = ConfigHandler.LoadConfig(_inputDirectory);
+            var canFrames = ConfigHandler.LoadConfig(configFilePath);
 
             if (canFrames is null || canFrames.Count <= 0) return;
             Entries.Clear();
@@ -59,7 +56,7 @@ namespace CanFrameBuilder
             var saveFileDialog = new SaveFileDialog
             {
                 Filter = "JSON Config Files | *.json",
-                InitialDirectory = _outputDirectory,
+                InitialDirectory = Directory.GetCurrentDirectory(),
                 Title = "Save CAN Frames JSON config file"
             };
 
@@ -67,7 +64,6 @@ namespace CanFrameBuilder
             if (success != true) return;
 
             var configFilePath = saveFileDialog.FileName;
-            _outputDirectory = configFilePath;
 
             ConfigHandler.SaveConfig(configFilePath, [.. Entries]);
         }
@@ -76,7 +72,7 @@ namespace CanFrameBuilder
         {
             var dialog = new OpenFolderDialog
             {
-                InitialDirectory = _outputDirectory
+                InitialDirectory = Directory.GetCurrentDirectory()
             };
 
             var result = dialog.ShowDialog();
@@ -155,6 +151,11 @@ namespace CanFrameBuilder
 
         private void BtnGenerate_OnClick(object sender, RoutedEventArgs e)
         {
+            if (!Directory.Exists(_outputDirectory) || _outputDirectory.Equals(string.Empty))
+            {
+                _outputDirectory = Directory.GetCurrentDirectory();
+            }
+
             CANFrameGenerator.GenerateClasses([.. Entries], _outputDirectory);
         }
     }
