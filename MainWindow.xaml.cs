@@ -21,6 +21,7 @@ namespace CanFrameBuilder
     {
         public ObservableCollection<CANFrame> Entries { get; set; }
         private string _outputDirectory;
+        private string _configDirectory;
 
         public MainWindow()
         {
@@ -28,6 +29,7 @@ namespace CanFrameBuilder
             Entries = [];
             InitializeComponent();
             _outputDirectory = Directory.GetCurrentDirectory();
+            _configDirectory = Directory.GetCurrentDirectory();
         }
 
         private void BtnLoadConfig_OnClick(object sender, RoutedEventArgs e)
@@ -35,7 +37,7 @@ namespace CanFrameBuilder
             var fileDialog = new OpenFileDialog
             {
                 Filter = "JSON Config Files | *.json",
-                InitialDirectory = Directory.GetCurrentDirectory(),
+                InitialDirectory = _configDirectory,
                 Title = "Pick CAN Frames JSON config file"
             };
 
@@ -43,8 +45,8 @@ namespace CanFrameBuilder
 
             if (sucess != true) return;
 
-            var configFilePath = fileDialog.FileName;
-            var canFrames = ConfigHandler.LoadConfig(configFilePath);
+            _configDirectory = fileDialog.FileName;
+            var canFrames = ConfigHandler.LoadConfig(_configDirectory);
 
             if (canFrames is null || canFrames.Count <= 0) return;
             Entries.Clear();
