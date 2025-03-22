@@ -27,6 +27,7 @@ namespace CanFrameBuilder
             DataContext = this;
             Entries = [];
             InitializeComponent();
+            _outputDirectory = Directory.GetCurrentDirectory();
         }
 
         private void BtnLoadConfig_OnClick(object sender, RoutedEventArgs e)
@@ -72,7 +73,7 @@ namespace CanFrameBuilder
         {
             var dialog = new OpenFolderDialog
             {
-                InitialDirectory = Directory.GetCurrentDirectory()
+                InitialDirectory = _outputDirectory
             };
 
             var result = dialog.ShowDialog();
