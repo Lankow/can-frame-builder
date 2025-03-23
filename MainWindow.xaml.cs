@@ -4,22 +4,21 @@ using Microsoft.Win32;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace CanFrameBuilder
 {
     public partial class MainWindow : Window
     {
         public ObservableCollection<CANFrame> Entries { get; set; }
+
+        public string OutputDirectory
+        {
+            get { return _outputDirectory; }
+            set { _outputDirectory = value; }
+        }
+
         private string _outputDirectory;
         private string _configDirectory;
 
@@ -27,9 +26,10 @@ namespace CanFrameBuilder
         {
             DataContext = this;
             Entries = [];
-            InitializeComponent();
             _outputDirectory = Directory.GetCurrentDirectory();
             _configDirectory = Directory.GetCurrentDirectory();
+
+            InitializeComponent();
         }
 
         private void BtnLoadConfig_OnClick(object sender, RoutedEventArgs e)

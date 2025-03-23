@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CanFrameBuilder"
         mc:Ignorable="d"
-        Title="CAN Frame Builder" Height="600" Width="600">
+        Title="CAN Frame Builder" Height="700" Width="600">
     <Grid>
         <!-- Grid Definition Start -->
         <Grid.RowDefinitions>
@@ -50,10 +50,15 @@
         <!-- CAN Frames List Buttons End-->
 
         <!-- Setup Panel Start -->
-        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
-            <Button Name="BtnLoadConfig" Width="100" Height="30" Click="BtnLoadConfig_OnClick" Margin="10" Content="Load Config File" />
-            <Button Name="BtnSaveConfig" Width="100" Height="30" Click="BtnSaveConfig_OnClick" Margin="10" Content="Save Config File" />
-            <Button Name="BtnPickOutputPath" Width="120" Height="30" Click="BtnPickOutputPath_OnClick" Margin="10" Content="Pick Output Folder" />
+        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left">
+            <StackPanel Orientation="Horizontal">
+                <Button Name="BtnLoadConfig" Width="100" Height="30" Click="BtnLoadConfig_OnClick" Margin="10" Content="Load Config File" />
+                <Button Name="BtnSaveConfig" Width="100" Height="30" Click="BtnSaveConfig_OnClick" Margin="10" Content="Save Config File" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button Name="BtnPickOutputPath" Width="120" Height="30" Click="BtnPickOutputPath_OnClick" Margin="10" Content="Pick Output Folder" />
+                <TextBox Width="200" Height="30" Text="{Binding OutputDirectory, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
         </StackPanel>
         <!-- Setup Panel End-->
 
