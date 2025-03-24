@@ -3,20 +3,34 @@ using CanFrameBuilder.View;
 using Microsoft.Win32;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Windows;
 
 
 namespace CanFrameBuilder
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         public ObservableCollection<CANFrame> Entries { get; set; }
 
         public string OutputDirectory
         {
-            get { return _outputDirectory; }
-            set { _outputDirectory = value; }
+            get => _outputDirectory;
+            set
+            {
+                if (_outputDirectory != value)
+                {
+                    _outputDirectory = value;
+                    OnPropertyChanged(nameof(OutputDirectory));
+                }
+            }
+        }
+        private void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private string _outputDirectory;
@@ -82,7 +96,7 @@ namespace CanFrameBuilder
 
             if (result != true) return;
 
-            _outputDirectory = dialog.FolderName;
+            OutputDirectory = dialog.FolderName;
         }
 
         private void BtnAddFrame_OnClick(object sender, RoutedEventArgs e)
