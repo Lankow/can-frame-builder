@@ -19,9 +19,9 @@
         <!-- Grid Definition End -->
 
         <!-- CAN Frames List Start -->
-        <ListView Grid.Row="0" Grid.Column="0" Name="FrameEntries" ItemsSource="{Binding Entries}" Margin="10">
+        <ListView Grid.Row="0" Grid.Column="0" Name="FrameEntries" ItemsSource="{Binding Frames}" Margin="10" SelectedItem="{Binding SelectedItem}">
             <ListView.View>
-                <GridView ColumnHeaderToolTip="CAN Frames">
+                <GridView ColumnHeaderToolTip="CAN Frames" >
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="CAN Frame Name" Width="130"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" Header="ID" Width="50"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Dlc}" Header="DLC" Width="50"/>
@@ -34,16 +34,16 @@
 
         <!-- CAN Frames List Buttons Start -->
         <StackPanel Grid.Row="0" Grid.Column="1">
-            <Button Name="BtnAddFrame" Width="120" Height="30" Click="BtnAddFrame_OnClick" Margin="10">
+            <Button Width="120" Height="30" Command="{Binding AddCommand}" Margin="10">
                 Add New CAN Frame
             </Button>
-            <Button Name="BtnEditFrame" Width="120" Height="30" Click="BtnEditFrame_OnClick" Margin="10">
+            <Button Width="120" Height="30" Command="{Binding EditCommand}" Margin="10">
                 Edit CAN Frame
             </Button>
-            <Button Name="BtnDeleteFrame" Width="120" Height="30" Click="BtnDeleteFrame_OnClick" Margin="10">
+            <Button Width="120" Height="30" Command="{Binding DeleteCommand}" Margin="10">
                 Delete CAN Frame
             </Button>
-            <Button Name="BtnClearFrames" Width="120" Height="30" Click="BtnClearFrames_OnClick" Margin="10">
+            <Button Width="120" Height="30" Command="{Binding ClearCommand}" Margin="10">
                 Clear CAN Frames
             </Button>
         </StackPanel>
@@ -52,11 +52,11 @@
         <!-- Setup Panel Start -->
         <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left">
             <StackPanel Orientation="Horizontal">
-                <Button Name="BtnLoadConfig" Width="100" Height="30" Click="BtnLoadConfig_OnClick" Margin="10" Content="Load Config File" />
+                <Button  Width="100" Height="30" Command="{Binding LoadCommand}" Margin="10" Content="Load Config File" />
                 <Button Name="BtnSaveConfig" Width="100" Height="30" Click="BtnSaveConfig_OnClick" Margin="10" Content="Save Config File" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Button Name="BtnPickOutputPath" Width="120" Height="30" Click="BtnPickOutputPath_OnClick" Margin="10" Content="Pick Output Folder" />
+                <Button Width="120" Height="30" Command="{Binding OutputCommand}" Margin="10" Content="Pick Output Folder" />
                 <TextBox Width="200" Height="30" Text="{Binding OutputDirectory, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
         </StackPanel>
