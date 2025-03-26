@@ -8,9 +8,11 @@ namespace CanFrameBuilder.ViewModel
     {
         public ObservableCollection<Signal> Signals { get; set; } = [];
 
-        public RelayCommand AddCommand => new(execute => AddSignal());
+        public RelayCommand AddCommand => new(execute => AddSignal(), canExecute => Signals.Count() < MaxSignalsAmount);
         public RelayCommand DeleteCommand => new(execute => DeleteSignal(), canExecute => _selectedItem != null);
         public RelayCommand ClearCommand => new(execute => ClearSignal(), canExecute => Signals.Count > 0);
+
+        private const int MaxSignalsAmount = 20;
 
         public CANFrameModalViewModel(CANFrame? canFrame)
         {
