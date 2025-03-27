@@ -3,6 +3,7 @@ using CanFrameBuilder.ViewModel;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace CanFrameBuilder.View
@@ -37,8 +38,17 @@ namespace CanFrameBuilder.View
             Close();
         }
 
+        private void IntValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            if (sender is TextBox textBox)
+            {
+                e.Handled = !IsInteger(textBox.Text);
+            }
+        }
+
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
+            
             e.Handled = !IsNumeric(e.Text);
         }
 
@@ -75,6 +85,24 @@ namespace CanFrameBuilder.View
         {
             var regex = new Regex(@"^[_a-zA-Z][_a-zA-Z0-9]*$");
             return regex.IsMatch(input);
+        }
+
+        private static bool IsInteger(string input)
+        {
+            try
+            {
+                int result = Convert.ToInt32(input);
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
+            catch (OverflowException)
+            {
+                ShowErrorWindow($"Value shall be between {Int32.MinValue} and {Int32.MaxValue}.");
+                return false;
+            }
         }
 
         private static bool ValidateRange<T>(T value, T minValue, T maxValue, string fieldName) where T : IComparable<T>

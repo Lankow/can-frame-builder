@@ -36,10 +36,10 @@
             <TextBlock Margin="10">Name</TextBlock>
             <TextBox Name ="FrameNameInput" Margin="5" Text="{Binding FrameName}"/>
             <TextBlock Margin="10">Frame ID</TextBlock>
-            <TextBox Name="FrameIdInput" PreviewTextInput="NumberValidationTextBox" 
+            <TextBox Name="FrameIdInput" PreviewTextInput="IntValidationTextBox" 
                        Text="{Binding FrameId}" Margin="5"/>
             <TextBlock Margin="10">Frame DLC</TextBlock>
-            <TextBox Name="FrameDlcInput" PreviewTextInput="NumberValidationTextBox" 
+            <TextBox Name="FrameDlcInput" PreviewTextInput="IntValidationTextBox" 
                        Text="{Binding FrameDlc}" Margin="5"/>
             <TextBlock Margin="10">Frame Channel</TextBlock>
             <TextBox Name="FrameChannelInput" PreviewTextInput="NumberValidationTextBox" 
