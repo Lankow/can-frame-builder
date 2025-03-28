@@ -1,10 +1,7 @@
 ﻿using CanFrameBuilder.Model;
-using CanFrameBuilder.View;
 using CanFrameBuilder.ViewModel;
 using Microsoft.Win32;
-using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.IO;
 using System.Windows;
 

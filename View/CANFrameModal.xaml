@@ -7,9 +7,9 @@
         xmlns:model="clr-namespace:CanFrameBuilder.Model"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="Manage CAN Frame" Height="720" Width="630">
+        Title="Manage CAN Frame" Height="720" Width="630" MinWidth="600" MinHeight="700">
 
-    <!-- Definition Byte Order Enum Start -->
+    <!-- Enum Definition for Byte Order -->
     <Window.Resources>
         <ObjectDataProvider x:Key="byteOrderEnum" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
             <ObjectDataProvider.MethodParameters>
@@ -17,70 +17,57 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </Window.Resources>
-    <!-- Definition Byte Order Enum End -->
-    
-    <Grid>
-        <!-- Grid Definition Start -->
+
+    <Grid Margin="10">
+        <!-- Grid Layout -->
         <Grid.RowDefinitions>
-            <RowDefinition Height="290"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="Auto"/>
+            <!-- Frame Info -->
+            <RowDefinition Height="*"/>
+            <!-- Signals List -->
+            <RowDefinition Height="Auto"/>
+            <!-- Buttons -->
         </Grid.RowDefinitions>
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
+            <!-- Main Content -->
             <ColumnDefinition Width="1*"/>
+            <!-- Buttons -->
         </Grid.ColumnDefinitions>
-        <!-- Grid Definition End -->
-        
-        <!-- CAN Frame Name and ID Start-->
-        <StackPanel>
-            <TextBlock Margin="10">Name</TextBlock>
-            <TextBox Name ="FrameNameInput" Margin="5" Text="{Binding FrameName}"/>
-            <TextBlock Margin="10">Frame ID</TextBlock>
-            <TextBox Name="FrameIdInput" PreviewTextInput="IntValidationTextBox" 
-                       Text="{Binding FrameId}" Margin="5"/>
-            <TextBlock Margin="10">Frame DLC</TextBlock>
-            <TextBox Name="FrameDlcInput" PreviewTextInput="IntValidationTextBox" 
-                       Text="{Binding FrameDlc}" Margin="5"/>
-            <TextBlock Margin="10">Frame Channel</TextBlock>
-            <TextBox Name="FrameChannelInput" PreviewTextInput="NumberValidationTextBox" 
-                       Text="{Binding FrameChannel}" Margin="5"/>
-        </StackPanel>
-        <!-- CAN Frame Name and ID End -->
-        
-        <!-- Signals Edition Start-->
-        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center">
-            <StackPanel>
-                <Button Name="AddSignalBtn" Command="{Binding AddCommand}" Width="130" Height="25"
-                        Margin="5" Content="Add New Signal"/>
-                <Button Name="RemoveSignalBtn" Command="{Binding DeleteCommand}" Width="130" Height="25"
-                        Margin="5" Content="Delete Signal"/>
-                <Button Name="ClearSignalBtn" Command="{Binding ClearCommand}" Width="130" Height="25"
-                        Margin="5" Content="Clear Signal"/>
-            </StackPanel>
-            <StackPanel>
-                <Label Content="Name"/>
-                <TextBox Text="{Binding SelectedItem.Name, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
-                <Label Content="LSB"/>
-                <TextBox PreviewTextInput="NumberValidationTextBox" 
-                           Text="{Binding SelectedItem.LSB, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
-                <Label Content="MSB"/>
-                <TextBox PreviewTextInput="NumberValidationTextBox" 
-                           Text="{Binding SelectedItem.MSB, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
-                <Label Content="Bit Count"/>
-                <TextBox PreviewTextInput="NumberValidationTextBox" 
-                           Text="{Binding SelectedItem.BitCount, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
-                <Label Content="Byte Order"/>
-                <ComboBox SelectedValue="{Binding SelectedItem.ByteOrder}" ItemsSource="{Binding Source={StaticResource byteOrderEnum}}" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
-                <Label Content="Default Value"/>
-                <TextBox PreviewTextInput="NumberValidationTextBox" 
-                           Text="{Binding SelectedItem.DefaultValue, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
-            </StackPanel>
-        </StackPanel>
+
+        <!-- CAN Frame Info Section -->
+        <Grid Grid.Row="0" Grid.Column="0" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Name" Margin="5" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+            <TextBox Name="FrameNameInput" Text="{Binding FrameName}" Margin="5" Grid.Row="0" Grid.Column="1"/>
+
+            <TextBlock Text="Frame ID" Margin="5" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2"/>
+            <TextBox Name="FrameIdInput" Text="{Binding FrameId}" PreviewTextInput="IntValidationTextBox" Margin="5" Grid.Row="0" Grid.Column="3"/>
+
+            <TextBlock Text="DLC" Margin="5" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
+            <TextBox Name="FrameDlcInput" Text="{Binding FrameDlc}" PreviewTextInput="IntValidationTextBox" Margin="5" Grid.Row="1" Grid.Column="1"/>
+
+            <TextBlock Text="Channel" Margin="5" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2"/>
+            <TextBox Name="FrameChannelInput" Text="{Binding FrameChannel}" PreviewTextInput="NumberValidationTextBox" Margin="5" Grid.Row="1" Grid.Column="3"/>
+        </Grid>
+
+        <!-- Signals List Section -->
         <DataGrid ItemsSource="{Binding Signals}" SelectionMode="Single" SelectedItem="{Binding SelectedItem}"
                   CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False"
-                  Grid.Row="1" Grid.Column="0" Margin="5,5,5,0">
+                  Grid.Row="1" Grid.Column="0" Margin="5">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="3*"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="2*"/>
                 <DataGridTextColumn Header="LSB" Binding="{Binding LSB}" Width="1*"/>
                 <DataGridTextColumn Header="MSB" Binding="{Binding MSB}" Width="1*"/>
                 <DataGridTextColumn Header="Bit Count" Binding="{Binding BitCount}" Width="2*"/>
@@ -88,17 +75,35 @@
                 <DataGridTextColumn Header="Default Value" Binding="{Binding DefaultValue}" Width="2*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <!-- Signals Edition End -->
 
-        <!-- Modal Buttons Start-->
-        <StackPanel Grid.Row="0" Grid.Column="1" Margin="0, 30, 0, 0">
-            <Button Name="SubmitFrameBtn" Width="120" Height="30" Click="SubmitFrameBtn_OnClick" Margin="10">
-                Submit
-            </Button>
-            <Button Name="CancelFrameBtn" Width="120" Height="30" Click="CancelFrameBtn_OnClick" Margin="10">
-                Cancel
-            </Button>
+        <!-- Signal Edit Controls -->
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <StackPanel>
+                <Button Name="AddSignalBtn" Command="{Binding AddCommand}" Width="130" Height="25" Margin="5" Content="Add New Signal"/>
+                <Button Name="RemoveSignalBtn" Command="{Binding DeleteCommand}" Width="130" Height="25" Margin="5" Content="Delete Signal"/>
+                <Button Name="ClearSignalBtn" Command="{Binding ClearCommand}" Width="130" Height="25" Margin="5" Content="Clear Signal"/>
+            </StackPanel>
+
+            <StackPanel>
+                <Label Content="Name"/>
+                <TextBox Text="{Binding SelectedItem.Name, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
+                <Label Content="LSB"/>
+                <TextBox PreviewTextInput="NumberValidationTextBox" Text="{Binding SelectedItem.LSB, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
+                <Label Content="MSB"/>
+                <TextBox PreviewTextInput="NumberValidationTextBox" Text="{Binding SelectedItem.MSB, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
+                <Label Content="Bit Count"/>
+                <TextBox PreviewTextInput="NumberValidationTextBox" Text="{Binding SelectedItem.BitCount, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
+                <Label Content="Byte Order"/>
+                <ComboBox SelectedValue="{Binding SelectedItem.ByteOrder}" ItemsSource="{Binding Source={StaticResource byteOrderEnum}}" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
+                <Label Content="Default Value"/>
+                <TextBox PreviewTextInput="NumberValidationTextBox" Text="{Binding SelectedItem.DefaultValue, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
+            </StackPanel>
         </StackPanel>
-        <!-- Modal Buttons End -->
+
+        <!-- Modal Buttons -->
+        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Name="SubmitFrameBtn" Width="120" Height="30" Click="SubmitFrameBtn_OnClick" Margin="5" Content="Submit"/>
+            <Button Name="CancelFrameBtn" Width="120" Height="30" Click="CancelFrameBtn_OnClick" Margin="5" Content="Cancel"/>
+        </StackPanel>
     </Grid>
 </Window>

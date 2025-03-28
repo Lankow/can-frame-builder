@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace CanFrameBuilder.Model;
+﻿namespace CanFrameBuilder.Model;
 
 public class CANFrame
 {
