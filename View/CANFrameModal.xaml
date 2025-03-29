@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CanFrameBuilder.View"
+        xmlns:userControls="clr-namespace:CanFrameBuilder.View.UserControls"
         xmlns:model="clr-namespace:CanFrameBuilder.Model"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
@@ -51,7 +52,6 @@
 
             <TextBlock Text="Name" Margin="5" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
             <TextBox Name="FrameNameInput" Text="{Binding FrameName}" Margin="5" Grid.Row="0" Grid.Column="1"/>
-
             <TextBlock Text="Frame ID" Margin="5" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2"/>
             <TextBox Name="FrameIdInput" Text="{Binding FrameId}" PreviewTextInput="IntValidationTextBox" Margin="5" Grid.Row="0" Grid.Column="3"/>
 

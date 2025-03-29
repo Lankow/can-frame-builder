@@ -43,6 +43,10 @@ namespace CanFrameBuilder
             {
                 CANFrameGenerator.GenerateClasses([.. Frames], OutputDirectory);
             }
+            else
+            {
+                MessageBox.Show("Generation requires VALID Output path.", "INVALID OUTPUT PATH", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }
