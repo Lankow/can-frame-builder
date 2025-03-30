@@ -11,6 +11,8 @@ namespace CanFrameBuilder.ViewModel
     public class MainWindowViewModel : ViewModelBase
     {
         public ObservableCollection<CANFrame> Frames { get; set; } = [];
+        public Settings Settings { get; set; } = new Settings();
+
         public string ConfigDirectory { get; set; } = Directory.GetCurrentDirectory();
         public string OutputDirectory { get; set; } = Directory.GetCurrentDirectory();
 

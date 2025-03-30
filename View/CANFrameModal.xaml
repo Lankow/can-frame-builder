@@ -53,13 +53,13 @@
             <TextBlock Text="Name" Margin="5" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
             <TextBox Name="FrameNameInput" Text="{Binding FrameName}" Margin="5" Grid.Row="0" Grid.Column="1"/>
             <TextBlock Text="Frame ID" Margin="5" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2"/>
-            <customControls:NumberBox Text="{Binding FrameId}" MinValue="0" MaxValue="{x:Static sys:Int32.MaxValue}" Margin="5" Grid.Row="0" Grid.Column="3"/>
+            <customControls:NumberBox Text="{Binding FrameId}" MinValue="0" MaxValue="255" Margin="5" Grid.Row="0" Grid.Column="3"/>
 
             <TextBlock Text="DLC" Margin="5" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
-            <customControls:NumberBox Text="{Binding FrameDlc}" MinValue="0" MaxValue="{x:Static sys:Int32.MaxValue}" Margin="5" Grid.Row="1" Grid.Column="1"/>
+            <customControls:NumberBox Text="{Binding FrameDlc}" MinValue="0" MaxValue="255" Margin="5" Grid.Row="1" Grid.Column="1"/>
 
             <TextBlock Text="Channel" Margin="5" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2"/>
-            <customControls:NumberBox Text="{Binding FrameChannel}" MinValue="0" MaxValue="{x:Static sys:Int32.MaxValue}" Margin="5" Grid.Row="1" Grid.Column="3"/>
+            <customControls:NumberBox Text="{Binding FrameChannel}" MinValue="0" MaxValue="255" Margin="5" Grid.Row="1" Grid.Column="3"/>
         </Grid>
 
         <!-- Signals List Section -->
@@ -88,15 +88,15 @@
                 <Label Content="Name"/>
                 <TextBox Text="{Binding SelectedItem.Name, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
                 <Label Content="LSB"/>
-                <TextBox PreviewTextInput="NumberValidationTextBox" Text="{Binding SelectedItem.LSB, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
+                <customControls:NumberBox Text="{Binding SelectedItem.LSB, UpdateSourceTrigger=PropertyChanged}" MinValue="0" MaxValue="255" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
                 <Label Content="MSB"/>
-                <TextBox PreviewTextInput="NumberValidationTextBox" Text="{Binding SelectedItem.MSB, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
+                <customControls:NumberBox Text="{Binding SelectedItem.MSB, UpdateSourceTrigger=PropertyChanged}" MinValue="0" MaxValue="255" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
                 <Label Content="Bit Count"/>
-                <TextBox PreviewTextInput="NumberValidationTextBox" Text="{Binding SelectedItem.BitCount, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
+                <customControls:NumberBox Text="{Binding SelectedItem.BitCount, UpdateSourceTrigger=PropertyChanged}" MinValue="0" MaxValue="255" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
                 <Label Content="Byte Order"/>
                 <ComboBox SelectedValue="{Binding SelectedItem.ByteOrder}" ItemsSource="{Binding Source={StaticResource byteOrderEnum}}" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
                 <Label Content="Default Value"/>
-                <TextBox PreviewTextInput="NumberValidationTextBox" Text="{Binding SelectedItem.DefaultValue, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
+                <customControls:NumberBox Text="{Binding SelectedItem.DefaultValue, UpdateSourceTrigger=PropertyChanged}" MinValue="0" MaxValue="255" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
             </StackPanel>
         </StackPanel>
 

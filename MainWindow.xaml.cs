@@ -12,7 +12,6 @@ namespace CanFrameBuilder
     {
         public ObservableCollection<CANFrame> Frames => (DataContext as MainWindowViewModel)?.Frames ?? [];
         public string OutputDirectory => (DataContext as MainWindowViewModel)?.OutputDirectory ?? Directory.GetCurrentDirectory();
-        public string ConfigDirectory => (DataContext as MainWindowViewModel)?.ConfigDirectory ?? Directory.GetCurrentDirectory();
 
         public MainWindow()
         {
