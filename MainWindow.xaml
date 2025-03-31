@@ -8,12 +8,6 @@
         Title="CAN Frame Builder" MinHeight="700" Height="700" MinWidth="600" Width="600">
     <Grid Margin="10">
         <!-- Define Main Grid Layout -->
-        <Grid.RowDefinitions>
-            <RowDefinition Height="6*"/>
-            <!-- CAN Frames List -->
-            <RowDefinition Height="1*"/>
-            <!-- Setup & Generation -->
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
             <!-- List & Settings -->
@@ -35,41 +29,37 @@
         </ListView>
 
         <!-- CAN Frames List Buttons -->
-        <Grid Grid.Row="0" Grid.Column="1" VerticalAlignment="Top">
+        <Grid Grid.Row="0" Grid.Column="1" >
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-
-            <Button Width="120" Height="30" Command="{Binding AddCommand}" Grid.Row="0" Margin="5" Content="Add New CAN Frame"/>
-            <Button Width="120" Height="30" Command="{Binding EditCommand}" Grid.Row="1" Margin="5" Content="Edit CAN Frame"/>
-            <Button Width="120" Height="30" Command="{Binding DeleteCommand}" Grid.Row="2" Margin="5" Content="Delete CAN Frame"/>
-            <Button Width="120" Height="30" Command="{Binding ClearCommand}" Grid.Row="3" Margin="5" Content="Clear CAN Frames"/>
-        </Grid>
-
-        <!-- Setup Panel -->
-        <Grid Grid.Row="1" Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <Button Width="120" Height="30" Command="{Binding LoadCommand}" Margin="5" Grid.Row="0" Grid.Column="0" Content="Load Config File"/>
-            <Button Width="120" Height="30" Name="BtnSaveConfig" HorizontalAlignment="Left" Click="BtnSaveConfig_OnClick" Margin="5" Grid.Row="0" Grid.Column="1" Content="Save Config File"/>
-
-            <Button Width="120" Height="30" Command="{Binding OutputCommand}" Margin="5" Grid.Row="1" Grid.Column="0" Content="Pick Output Folder"/>
-            <TextBox Height="30" Text="{Binding OutputDirectory, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
-        </Grid>
-
-        <!-- Class Generation Button -->
-        <Grid Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center">
-            <Button Name="BtnGenerate" Width="120" Height="30" Click="BtnGenerate_OnClick" Margin="5" Content="Generate"/>
+            <Grid Grid.Row="0" Grid.Column="0" VerticalAlignment="Top">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                
+                <Button Width="120" Height="30" Command="{Binding AddCommand}" Grid.Row="0" Margin="5" Content="Add New CAN Frame"/>
+                <Button Width="120" Height="30" Command="{Binding EditCommand}" Grid.Row="1" Margin="5" Content="Edit CAN Frame"/>
+                <Button Width="120" Height="30" Command="{Binding DeleteCommand}" Grid.Row="2" Margin="5" Content="Delete CAN Frame"/>
+                <Button Width="120" Height="30" Command="{Binding ClearCommand}" Grid.Row="3" Margin="5" Content="Clear CAN Frames"/>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="0" VerticalAlignment="Bottom">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                
+                <Button Width="120" Height="30" Command="{Binding SettingsCommand}" Grid.Row="0" Margin="5" Content="Settings"/>
+                <Button Width="120" Height="30" Command="{Binding LoadCommand}" Margin="5" Grid.Row="1" Content="Load Config File"/>
+                <Button Width="120" Height="30" Name="BtnSaveConfig" Click="BtnSaveConfig_OnClick" Margin="5" Grid.Row="2"  Content="Save Config File"/>
+                <Button Name="BtnGenerate" Width="120" Height="30" Click="BtnGenerate_OnClick" Margin="5" Grid.Row="3" Content="Generate"/>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

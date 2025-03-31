@@ -15,7 +15,7 @@ namespace CanFrameBuilder.View
         public int FrameDlc => (DataContext as CANFrameModalViewModel)?.FrameDlc ?? 0;
         public int FrameChannel => (DataContext as CANFrameModalViewModel)?.FrameChannel ?? 0;
         public ObservableCollection<Signal> Signals => (DataContext as CANFrameModalViewModel)?.Signals ?? new ObservableCollection<Signal>();
-
+         //TODO: Rework so only 1 field frame is available
         public bool Success { get; private set; }
 
         public CANFrameModal(CANFrame? canFrame = null)

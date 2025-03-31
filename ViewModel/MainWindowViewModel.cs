@@ -33,6 +33,7 @@ namespace CanFrameBuilder.ViewModel
         public RelayCommand ClearCommand => new(execute => ClearFrames(), canExecute => Frames.Count > 0);
         public RelayCommand LoadCommand => new(execute => LoadConfig());
         public RelayCommand OutputCommand => new(execute => PickOutput());
+        public RelayCommand SettingsCommand => new(execute => OpenSettings());
 
         private void AddFrame()
         {
@@ -111,6 +112,12 @@ namespace CanFrameBuilder.ViewModel
             if (result != true) return;
 
             OutputDirectory = dialog.FolderName;
+        }
+
+        private void OpenSettings()
+        {
+            var settingsModal = new SettingsModal(Settings);
+            settingsModal.ShowDialog();
         }
 
         private CANFrame ExtractModalFrame(CANFrameModal canFrameModal)
