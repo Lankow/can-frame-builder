@@ -51,19 +51,19 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Text="Name" Margin="5" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
-            <TextBox Name="FrameNameInput" Text="{Binding FrameName}" Margin="5" Grid.Row="0" Grid.Column="1"/>
+            <TextBox Name="FrameNameInput" Text="{Binding Frame.Name}" Margin="5" Grid.Row="0" Grid.Column="1"/>
             <TextBlock Text="Frame ID" Margin="5" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2"/>
-            <customControls:NumberBox Text="{Binding FrameId}" MinValue="0" MaxValue="255" Margin="5" Grid.Row="0" Grid.Column="3"/>
+            <customControls:NumberBox Text="{Binding Frame.Id}" MinValue="0" MaxValue="255" Margin="5" Grid.Row="0" Grid.Column="3"/>
 
             <TextBlock Text="DLC" Margin="5" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
-            <customControls:NumberBox Text="{Binding FrameDlc}" MinValue="0" MaxValue="255" Margin="5" Grid.Row="1" Grid.Column="1"/>
+            <customControls:NumberBox Text="{Binding Frame.Dlc}" MinValue="0" MaxValue="255" Margin="5" Grid.Row="1" Grid.Column="1"/>
 
             <TextBlock Text="Channel" Margin="5" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2"/>
-            <customControls:NumberBox Text="{Binding FrameChannel}" MinValue="0" MaxValue="255" Margin="5" Grid.Row="1" Grid.Column="3"/>
+            <customControls:NumberBox Text="{Binding Frame.Channel}" MinValue="0" MaxValue="255" Margin="5" Grid.Row="1" Grid.Column="3"/>
         </Grid>
 
         <!-- Signals List Section -->
-        <DataGrid ItemsSource="{Binding Signals}" SelectionMode="Single" SelectedItem="{Binding SelectedItem}"
+        <DataGrid ItemsSource="{Binding Frame.Signals}" SelectionMode="Single" SelectedItem="{Binding SelectedItem}"
                   CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False"
                   Grid.Row="1" Grid.Column="0" Margin="5">
             <DataGrid.Columns>

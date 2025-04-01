@@ -3,6 +3,7 @@ using CanFrameBuilder.MVVM;
 using CanFrameBuilder.View;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 
@@ -37,12 +38,12 @@ namespace CanFrameBuilder.ViewModel
 
         private void AddFrame()
         {
-            var canFrameModal = new CANFrameModal();
+            var canFrameModal = new CANFrameModal(new CANFrame());
             canFrameModal.ShowDialog();
 
             if (!canFrameModal.Success) return;
 
-            var frameToAdd = ExtractModalFrame(canFrameModal);
+            var frameToAdd = canFrameModal.Frame;
             Frames.Add(frameToAdd);
         }
 
@@ -53,7 +54,7 @@ namespace CanFrameBuilder.ViewModel
 
             if (!canFrameModal.Success) return;
 
-            var frameToEdit= ExtractModalFrame(canFrameModal);
+            var frameToEdit= canFrameModal.Frame;
             int selectedItemIndex = Frames.IndexOf(_selectedItem);
             Frames[selectedItemIndex] = frameToEdit;
         }
@@ -118,17 +119,6 @@ namespace CanFrameBuilder.ViewModel
         {
             var settingsModal = new SettingsModal(Settings);
             settingsModal.ShowDialog();
-        }
-
-        private CANFrame ExtractModalFrame(CANFrameModal canFrameModal)
-        {
-            var frameName = canFrameModal.FrameName;
-            var frameId = canFrameModal.FrameId;
-            var frameDlc = canFrameModal.FrameDlc;
-            var frameChannel = canFrameModal.FrameChannel;
-            var signals = canFrameModal.Signals;
-
-            return new CANFrame(frameName, frameId, frameDlc, frameChannel, [.. signals]);
         }
     }
 }
