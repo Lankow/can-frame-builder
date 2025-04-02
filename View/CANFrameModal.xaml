@@ -51,7 +51,7 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Text="Name" Margin="5" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
-            <TextBox Name="FrameNameInput" Text="{Binding Frame.Name}" Margin="5" Grid.Row="0" Grid.Column="1"/>
+            <TextBox Name="FrameNameInput" Text="{Binding Frame.Name}" Margin="5" Grid.Row="0" Grid.Column="1" PreviewTextInput="VarValidationTextBox"/>
             <TextBlock Text="Frame ID" Margin="5" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2"/>
             <customControls:NumberBox Text="{Binding Frame.Id}" MinValue="0" MaxValue="255" Margin="5" Grid.Row="0" Grid.Column="3"/>
 
@@ -63,7 +63,7 @@
         </Grid>
 
         <!-- Signals List Section -->
-        <DataGrid ItemsSource="{Binding Frame.Signals}" SelectionMode="Single" SelectedItem="{Binding SelectedItem}"
+        <DataGrid ItemsSource="{Binding Frame.Signals, Mode=TwoWay}" SelectionMode="Single" SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                   CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False"
                   Grid.Row="1" Grid.Column="0" Margin="5">
             <DataGrid.Columns>

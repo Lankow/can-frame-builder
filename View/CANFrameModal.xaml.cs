@@ -2,6 +2,7 @@
 using CanFrameBuilder.ViewModel;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Input;
 
 namespace CanFrameBuilder.View
 {
@@ -11,7 +12,7 @@ namespace CanFrameBuilder.View
         public bool Success { get; private set; }
 
         public CANFrameModal(CANFrame canFrame)
-        {
+        {   
             InitializeComponent();
             DataContext = new CANFrameModalViewModel(canFrame);
         }
@@ -27,13 +28,18 @@ namespace CanFrameBuilder.View
             Close();
         }
 
-        private static bool IsVariableName(string input)
+        private void VarValidationTextBox(object sender, TextCompositionEventArgs e)
         {
-            MessageBox.Show("Frame name shall include only characters valid for a class name in C#.",
-                "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-
             var regex = new Regex(@"^[_a-zA-Z][_a-zA-Z0-9]*$");
-            return regex.IsMatch(input);
+            var result = !regex.IsMatch(e.Text);
+
+            if (result)
+            {
+                MessageBox.Show("Frame name shall include only characters valid for a class name in C#.",
+                "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+
+            e.Handled = result;
         }
     }
 }

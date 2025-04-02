@@ -17,6 +17,11 @@ namespace CanFrameBuilder.ViewModel
         public CANFrame Frame
         {
             get => _frame;
+            set
+            {
+                _frame = value;
+                OnPropertyChanged();
+            }
         }
 
         public Signal? SelectedItem
