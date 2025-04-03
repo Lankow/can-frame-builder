@@ -7,6 +7,12 @@ namespace CanFrameBuilder.ViewModel
         public SettingsModal(Model.Settings settings)
         {
             InitializeComponent();
+            DataContext = new SettingsModalViewModel(settings);
+        }
+
+        private void CloseSettingsBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

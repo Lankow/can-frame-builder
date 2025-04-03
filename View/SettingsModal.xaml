@@ -5,11 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CanFrameBuilder.ViewModel"
         mc:Ignorable="d"
-        Title="SettingsModal" Height="450" Width="800">
-    <Grid>
-        <!-- Pick output -->
-        <!-- Output Text -->
-        <!-- Generate Namespace Checkbox -->
-        <!-- Cancel -->
+        Title="Settings" Height="720" Width="400" MinWidth="400" MinHeight="700">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Output Path Label -->
+        <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Output Directory" VerticalAlignment="Center" />
+
+        <!-- Output Path Input -->
+        <TextBox Grid.Row="1" Grid.Column="0" Margin="5" Text="{Binding Settings.OutputDirectory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <!-- Pick Folder Button -->
+        <Button Grid.Row="1" Grid.Column="1" Width="120" Height="30" Command="{Binding OutputCommand}" Content="Pick Folder" Margin="5"/>
+
+        <!-- Close Button -->
+        <Button Name="CloseSettingsBtn" Width="120" Height="30" Grid.Row="2" Grid.ColumnSpan="2" Click="CloseSettingsBtn_OnClick" Margin="5" Content="Close"/>
     </Grid>
 </Window>

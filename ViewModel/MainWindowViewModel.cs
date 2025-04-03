@@ -15,7 +15,6 @@ namespace CanFrameBuilder.ViewModel
         public Settings Settings { get; set; } = new Settings();
 
         public string ConfigDirectory { get; set; } = Directory.GetCurrentDirectory();
-        public string OutputDirectory { get; set; } = Directory.GetCurrentDirectory();
 
         private CANFrame? _selectedItem = null;
         public CANFrame? SelectedItem
@@ -33,7 +32,6 @@ namespace CanFrameBuilder.ViewModel
         public RelayCommand DeleteCommand => new(execute => DeleteFrame(), canExecute => _selectedItem != null);
         public RelayCommand ClearCommand => new(execute => ClearFrames(), canExecute => Frames.Count > 0);
         public RelayCommand LoadCommand => new(execute => LoadConfig());
-        public RelayCommand OutputCommand => new(execute => PickOutput());
         public RelayCommand SettingsCommand => new(execute => OpenSettings());
 
         private void AddFrame()
@@ -99,20 +97,6 @@ namespace CanFrameBuilder.ViewModel
             Frames.Clear();
 
             foreach (var canFrame in canFrames) Frames.Add(canFrame);
-        }
-
-        private void PickOutput()
-        {
-            var dialog = new OpenFolderDialog
-            {
-                InitialDirectory = OutputDirectory
-            };
-
-            var result = dialog.ShowDialog();
-
-            if (result != true) return;
-
-            OutputDirectory = dialog.FolderName;
         }
 
         private void OpenSettings()

@@ -11,7 +11,7 @@ namespace CanFrameBuilder
     public partial class MainWindow : Window
     {
         public ObservableCollection<CANFrame> Frames => (DataContext as MainWindowViewModel)?.Frames ?? [];
-        public string OutputDirectory => (DataContext as MainWindowViewModel)?.OutputDirectory ?? Directory.GetCurrentDirectory();
+        public Settings Settings => (DataContext as MainWindowViewModel)?.Settings ?? new Settings();
 
         public MainWindow()
         {
@@ -38,9 +38,9 @@ namespace CanFrameBuilder
 
         private void BtnGenerate_OnClick(object sender, RoutedEventArgs e)
         {
-            if (Directory.Exists(OutputDirectory) && !OutputDirectory.Equals(string.Empty))
+            if (Directory.Exists(Settings.OutputDirectory) && !Settings.OutputDirectory.Equals(string.Empty))
             {
-                CANFrameGenerator.GenerateClasses([.. Frames], OutputDirectory);
+                CANFrameGenerator.GenerateClasses([.. Frames], Settings.OutputDirectory);
             }
             else
             {
