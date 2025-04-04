@@ -11,8 +11,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
@@ -27,7 +27,13 @@
         <!-- Pick Folder Button -->
         <Button Grid.Row="1" Grid.Column="1" Width="120" Height="30" Command="{Binding OutputCommand}" Content="Pick Folder" Margin="5"/>
 
+        <!-- Generate Namespaces Label and Checkbox -->
+        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" Margin="5">
+            <Label Content="Generate Namespaces" VerticalAlignment="Center"/>
+            <CheckBox IsChecked="{Binding Settings.AddNamespace, Mode=TwoWay}" Margin="5,5,0,0"/>
+        </StackPanel>
+
         <!-- Close Button -->
-        <Button Name="CloseSettingsBtn" Width="120" Height="30" Grid.Row="2" Grid.ColumnSpan="2" Click="CloseSettingsBtn_OnClick" Margin="5" Content="Close"/>
+        <Button Name="CloseSettingsBtn" Width="120" Height="30" Grid.Row="3" Grid.ColumnSpan="2" Click="CloseSettingsBtn_OnClick" Margin="5" Content="Close"/>
     </Grid>
 </Window>
