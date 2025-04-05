@@ -12,6 +12,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -33,7 +34,13 @@
             <CheckBox IsChecked="{Binding Settings.AddNamespace, Mode=TwoWay}" Margin="5,5,0,0"/>
         </StackPanel>
 
+        <!-- Add To Project Label and Checkbox -->
+        <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal" Margin="5">
+            <Label Content="Add To Project" VerticalAlignment="Center"/>
+            <CheckBox IsChecked="{Binding Settings.AddToProject, Mode=TwoWay}" Margin="5,5,0,0"/>
+        </StackPanel>
+
         <!-- Close Button -->
-        <Button Name="CloseSettingsBtn" Width="120" Height="30" Grid.Row="3" Grid.ColumnSpan="2" Click="CloseSettingsBtn_OnClick" Margin="5" Content="Close"/>
+        <Button Name="CloseSettingsBtn" Width="120" Height="30" Grid.Row="4" Grid.ColumnSpan="2" Click="CloseSettingsBtn_OnClick" Margin="5" Content="Close"/>
     </Grid>
 </Window>

@@ -40,7 +40,7 @@ namespace CanFrameBuilder
         {
             if (Directory.Exists(Settings.OutputDirectory) && !Settings.OutputDirectory.Equals(string.Empty))
             {
-                CANFrameGenerator.GenerateClasses([.. Frames], Settings.OutputDirectory);
+                //CANFrameGenerator.GenerateClasses([.. Frames], Settings.OutputDirectory);
             }
             else
             {

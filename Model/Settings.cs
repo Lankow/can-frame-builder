@@ -6,11 +6,12 @@ namespace CanFrameBuilder.Model
     {
         public string? OutputDirectory { get; set; }
         public bool AddNamespace { get; set; }
-
+        public bool AddToProject { get; set; }
         public Settings()
         {
             OutputDirectory = Directory.GetCurrentDirectory();
             AddNamespace = true;
+            AddToProject = true;
         }
     }
 }
