@@ -60,6 +60,8 @@ namespace CanFrameBuilder
             sb.AppendLine($"\tpublic class {frame.Name} : CANFrame");
             sb.AppendLine("\t{");
 
+            // Count Tabs - Try to determine how deep nested is currently class.
+
             // Constructor
             sb.AppendLine($"\t\tpublic {frame.Name}() : base({frame.Id}, {frame.Dlc})");
             sb.AppendLine("\t\t{");

@@ -91,7 +91,7 @@ namespace CanFrameBuilder.ViewModel
             if (sucess != true) return;
 
             ConfigDirectory = fileDialog.FileName;
-            var canFrames = ConfigHandler.LoadConfig(ConfigDirectory);
+            var canFrames = JSONHandler.LoadConfig(ConfigDirectory);
 
             if (canFrames is null || canFrames.Count <= 0) return;
             Frames.Clear();

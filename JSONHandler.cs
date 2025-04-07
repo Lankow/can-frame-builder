@@ -5,9 +5,9 @@ using System.Windows;
 
 namespace CanFrameBuilder
 {
-    internal class ConfigHandler
+    internal class JSONHandler
     {
-        internal static void SaveConfig(string configOutputPath, List<CANFrame> canFrames)
+        internal static void SaveFrames(string configOutputPath, List<CANFrame> canFrames)
         {
             try
             {
@@ -39,6 +39,25 @@ namespace CanFrameBuilder
                 MessageBox.Show($"Encountered error when loading Config file: {configInputPath}." +
                     $" Error: {ex.Message}", "Config Load ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return [];
+            }
+        }
+
+        internal static void SaveSettings(string settingsFilePath, Settings settings)
+        {
+            try
+            {
+                var jsonSerializerOptions = new JsonSerializerOptions
+                {
+                    WriteIndented = true
+                };
+
+                var jsonString = JsonSerializer.Serialize(settings, jsonSerializerOptions);
+                File.WriteAllText(settingsFilePath, jsonString);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Encountered error when saving Settings file: {settingsFilePath}." +
+                    $" Error: {ex.Message}", "Settings Save ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

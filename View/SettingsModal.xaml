@@ -13,6 +13,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -20,13 +21,13 @@
         </Grid.ColumnDefinitions>
 
         <!-- Output Path Label -->
-        <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Output Directory" VerticalAlignment="Center" />
+        <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Generated Output Directory" VerticalAlignment="Center" />
 
         <!-- Output Path Input -->
         <TextBox Grid.Row="1" Grid.Column="0" Margin="5" Text="{Binding Settings.OutputDirectory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <!-- Pick Folder Button -->
-        <Button Grid.Row="1" Grid.Column="1" Width="120" Height="30" Command="{Binding OutputCommand}" Content="Pick Folder" Margin="5"/>
+        <Button Grid.Row="1" Grid.Column="1" Width="120" Height="30" Command="{Binding OutputCommand}" Content="Pick Output" Margin="5"/>
 
         <!-- Generate Namespaces Label and Checkbox -->
         <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" Margin="5">
@@ -39,8 +40,14 @@
             <Label Content="Add To Project" VerticalAlignment="Center"/>
             <CheckBox IsChecked="{Binding Settings.AddToProject, Mode=TwoWay}" Margin="5,5,0,0"/>
         </StackPanel>
+        
+        <!-- Load Settings Button -->
+        <Button Width="120" Height="30" Grid.Row="2" Grid.Column="1" Click="LoadSettingsBtn_OnClick" Margin="5" Content="Load"/>
+        
+        <!-- Save Settings Button -->
+        <Button Width="120" Height="30" Grid.Row="3" Grid.Column="1" Click="SaveSettingsBtn_OnClick" Margin="5" Content="Save"/>
 
         <!-- Close Button -->
-        <Button Name="CloseSettingsBtn" Width="120" Height="30" Grid.Row="4" Grid.ColumnSpan="2" Click="CloseSettingsBtn_OnClick" Margin="5" Content="Close"/>
+        <Button Name="CloseSettingsBtn" Width="120" Height="30" Grid.Row="5" Grid.Column="1" Click="CloseSettingsBtn_OnClick" Margin="5" Content="Close"/>
     </Grid>
 </Window>

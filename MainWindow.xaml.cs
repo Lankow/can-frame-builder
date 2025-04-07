@@ -19,7 +19,7 @@ namespace CanFrameBuilder
             DataContext = new MainWindowViewModel();
         }
 
-        private void BtnSaveConfig_OnClick(object sender, RoutedEventArgs e)
+        private void BtnSaveFrames_OnClick(object sender, RoutedEventArgs e)
         {
             var saveFileDialog = new SaveFileDialog
             {
@@ -33,7 +33,7 @@ namespace CanFrameBuilder
 
             var configFilePath = saveFileDialog.FileName;
 
-            ConfigHandler.SaveConfig(configFilePath, [.. Frames]);
+            JSONHandler.SaveFrames(configFilePath, [.. Frames]);
         }
 
         private void BtnGenerate_OnClick(object sender, RoutedEventArgs e)
