@@ -2,7 +2,6 @@
 using Microsoft.Win32;
 using System.IO;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace CanFrameBuilder.ViewModel
 {
@@ -19,11 +18,6 @@ namespace CanFrameBuilder.ViewModel
         private void CloseSettingsBtn_OnClick(object sender, RoutedEventArgs e)
         {
             Close();
-        }
-        
-        private void LoadSettingsBtn_OnClick(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void SaveSettingsBtn_OnClick(object sender, RoutedEventArgs e)

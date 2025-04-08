@@ -8,7 +8,9 @@
         xmlns:model="clr-namespace:CanFrameBuilder.Model"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="Manage CAN Frame" Height="720" Width="630" MinWidth="600" MinHeight="700">
+        Title="Manage CAN Frame" 
+        Height="720" Width="630" 
+        MinHeight="700" MinWidth="600">
 
     <!-- Enum Definition for Byte Order -->
     <Window.Resources>

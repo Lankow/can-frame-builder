@@ -42,7 +42,7 @@
         </StackPanel>
         
         <!-- Load Settings Button -->
-        <Button Width="120" Height="30" Grid.Row="2" Grid.Column="1" Click="LoadSettingsBtn_OnClick" Margin="5" Content="Load"/>
+        <Button Width="120" Height="30" Grid.Row="2" Grid.Column="1" Command="{Binding LoadCommand}" Margin="5" Content="Load"/>
         
         <!-- Save Settings Button -->
         <Button Width="120" Height="30" Grid.Row="3" Grid.Column="1" Click="SaveSettingsBtn_OnClick" Margin="5" Content="Save"/>

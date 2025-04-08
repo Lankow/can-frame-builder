@@ -17,6 +17,7 @@ namespace CanFrameBuilder.Model
             SolutionDirectory = "";
             AddNamespace = true;
             AddToProject = true;
+            Imports = [];
         }
     }
 }

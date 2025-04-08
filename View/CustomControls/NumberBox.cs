@@ -52,7 +52,7 @@ namespace CanFrameBuilder.View.CustomControls
         {
             if (e.DataObject.GetDataPresent(DataFormats.Text))
             {
-                string pasteText = e.DataObject.GetData(DataFormats.Text) as string;
+                string? pasteText = e.DataObject.GetData(DataFormats.Text) as string;
                 if (!IsTextAllowed(pasteText) || !IsWithinRange(pasteText))
                 {
                     ShowErrorWindow("Invalid or out-of-range input.");
