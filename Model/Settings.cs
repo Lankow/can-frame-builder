@@ -5,19 +5,24 @@ namespace CanFrameBuilder.Model
 {
     public class Settings
     {
+        private const string CANOE_IMPORTS = "Vector.CANoe.Runtime Vector.CANoe.TFS";
+
         public string? OutputDirectory { get; set; }
         public string? SolutionDirectory { get; set; }
+        public string? Imports { get; set; }
+
         public bool AddNamespace { get; set; }
         public bool AddToProject { get; set; }
-        public ObservableCollection<string> Imports { get; set; }
+        public bool AddImports { get; set; }
 
         public Settings()
         {
             OutputDirectory = Directory.GetCurrentDirectory();
+            Imports = CANOE_IMPORTS;
             SolutionDirectory = "";
             AddNamespace = true;
             AddToProject = true;
-            Imports = [];
+            AddImports = true;
         }
     }
 }
