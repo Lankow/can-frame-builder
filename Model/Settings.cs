@@ -8,7 +8,7 @@ namespace CanFrameBuilder.Model
         private const string CANOE_IMPORTS = "Vector.CANoe.Runtime Vector.CANoe.TFS";
 
         public string? OutputDirectory { get; set; }
-        public string? SolutionDirectory { get; set; }
+        public string? SolutionPath { get; set; }
         public string? Imports { get; set; }
 
         public bool AddNamespace { get; set; }
@@ -17,9 +17,9 @@ namespace CanFrameBuilder.Model
 
         public Settings()
         {
-            OutputDirectory = Directory.GetCurrentDirectory();
+            OutputDirectory = "";
+            SolutionPath = "";
             Imports = CANOE_IMPORTS;
-            SolutionDirectory = "";
             AddNamespace = true;
             AddToProject = true;
             AddImports = true;
