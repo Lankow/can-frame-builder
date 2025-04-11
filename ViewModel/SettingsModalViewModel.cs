@@ -1,5 +1,6 @@
 ﻿using CanFrameBuilder.Model;
 using CanFrameBuilder.MVVM;
+using CanFrameBuilder.Utils;
 using Microsoft.Win32;
 using System.IO;
 
@@ -53,7 +54,14 @@ namespace CanFrameBuilder.ViewModel
 
             if (result != true) return;
 
-            OutputDirectory = dialog.FolderName;
+            var path = dialog.FolderName;
+
+            if (SolutionPath != "" && !PathHelper.IsSubPath(SolutionPath, path))
+            {
+                SolutionPath = "";
+            }
+
+            OutputDirectory = path;
         }
 
         private void PickSolution()
