@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using System.Windows;
 
-namespace CanFrameBuilder
+namespace CanFrameBuilder.Utils
 {
     internal class CANFrameGenerator
     {

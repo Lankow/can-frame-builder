@@ -1,5 +1,6 @@
 using CanFrameBuilder.Model;
 using CanFrameBuilder.MVVM;
+using CanFrameBuilder.Utils;
 using CanFrameBuilder.View;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
