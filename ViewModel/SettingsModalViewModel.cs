@@ -3,6 +3,8 @@ using CanFrameBuilder.MVVM;
 using CanFrameBuilder.Utils;
 using Microsoft.Win32;
 using System.IO;
+using System.Windows;
+using System.Windows.Shapes;
 
 namespace CanFrameBuilder.ViewModel
 {
@@ -56,8 +58,10 @@ namespace CanFrameBuilder.ViewModel
 
             var path = dialog.FolderName;
 
-            if (SolutionPath != "" && !PathHelper.IsSubPath(SolutionPath, path))
+            if (SolutionPath != "" && !PathHelper.IsSubPath(path, SolutionPath))
             {
+                MessageBox.Show("Generation output has to be set in the same directory as Solution. Update Solution path.",
+                    "Invalid Solution Path", MessageBoxButton.OK, MessageBoxImage.Warning);
                 SolutionPath = "";
             }
 
@@ -77,6 +81,15 @@ namespace CanFrameBuilder.ViewModel
 
             if (result != true) return;
 
+            var filePath = dialog.FileName;
+
+            if (OutputDirectory != "" && !PathHelper.IsSubPath(OutputDirectory, filePath))
+            {
+                MessageBox.Show("Solution has to be set in the same directory as Generation output. Update Output path.",
+                    "Invalid Output Path", MessageBoxButton.OK, MessageBoxImage.Warning);
+                OutputDirectory = "";
+            }
+            
             SolutionPath = dialog.FileName;
         }
 

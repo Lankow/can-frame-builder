@@ -1,23 +1,29 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
-namespace CanFrameBuilder.Utils
+public class PathHelper
 {
-    public class PathHelper
+    public static bool IsSubPath(string pathA, string pathB)
     {
-        public static bool IsSubPath(string filePath, string baseDir)
+        try
         {
-            try
+            string NormalizePath(string path)
             {
-                var fullFilePath = Path.GetFullPath(filePath).TrimEnd(Path.DirectorySeparatorChar);
-                var fullBaseDir = Path.GetFullPath(baseDir).TrimEnd(Path.DirectorySeparatorChar);
+                var fullPath = Path.GetFullPath(path);
+                if (File.Exists(fullPath) || Path.HasExtension(fullPath))
+                    fullPath = Path.GetDirectoryName(fullPath) ?? fullPath;
+                return fullPath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            }
 
-                return fullFilePath.StartsWith(fullBaseDir + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase)
-                       || string.Equals(fullFilePath, fullBaseDir, StringComparison.OrdinalIgnoreCase);
-            }
-            catch
-            {
-                return false;
-            }
+            var dirA = NormalizePath(pathA);
+            var dirB = NormalizePath(pathB);
+
+            return dirA.StartsWith(dirB + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase)
+                   || string.Equals(dirA, dirB, StringComparison.OrdinalIgnoreCase);
+        }
+        catch
+        {
+            return false;
         }
     }
 }
