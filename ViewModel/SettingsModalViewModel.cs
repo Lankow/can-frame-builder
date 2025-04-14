@@ -4,7 +4,6 @@ using CanFrameBuilder.Utils;
 using Microsoft.Win32;
 using System.IO;
 using System.Windows;
-using System.Windows.Shapes;
 
 namespace CanFrameBuilder.ViewModel
 {
@@ -27,10 +26,10 @@ namespace CanFrameBuilder.ViewModel
         }
         public string SolutionPath
         {
-            get => _settings.SolutionPath;
+            get => _settings.Solution.Path;
             set
             {
-                _settings.SolutionPath = value;
+                _settings.Solution.Path = value;
                 OnPropertyChanged();
             }
         }
@@ -73,7 +72,7 @@ namespace CanFrameBuilder.ViewModel
             var dialog = new OpenFileDialog
             {
                 Filter = "C# Solution File | *.sln",
-                InitialDirectory = Settings.SolutionPath == "" ? Directory.GetCurrentDirectory()  : Settings.SolutionPath,
+                InitialDirectory = Settings.Solution.Path == "" ? Directory.GetCurrentDirectory()  : Settings.Solution.Path,
                 Title = "Pick Solution File"
             };
 
@@ -91,6 +90,12 @@ namespace CanFrameBuilder.ViewModel
             }
             
             SolutionPath = dialog.FileName;
+            
+            var solution = Settings.Solution;
+            if (SolutionParser.ExtractProjects(ref solution))
+            {
+                Settings.Solution = solution;
+            }
         }
 
         private void LoadSettings()
