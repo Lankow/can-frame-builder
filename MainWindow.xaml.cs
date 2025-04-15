@@ -20,21 +20,27 @@ namespace CanFrameBuilder
             DataContext = new MainWindowViewModel();
         }
 
-        private void BtnSaveFrames_OnClick(object sender, RoutedEventArgs e)
+        private void BtnSaveConfig_OnClick(object sender, RoutedEventArgs e)
         {
             var saveFileDialog = new SaveFileDialog
             {
                 Filter = "JSON Config Files | *.json",
                 InitialDirectory = Directory.GetCurrentDirectory(),
-                Title = "Save CAN Frames JSON config file"
+                Title = "Save Config file as JSON"
             };
 
             var success = saveFileDialog.ShowDialog();
             if (success != true) return;
 
-            var configFilePath = saveFileDialog.FileName;
+            var configOutputPath = saveFileDialog.FileName;
 
-            JSONHandler.SaveFrames(configFilePath, [.. Frames]);
+            var configData = new ConfigData()
+            {
+                Frames = Frames,
+                Settings = Settings
+            };
+
+            JSONHandler.SaveToFile(configOutputPath, configData, "Config");
         }
 
         private void BtnGenerate_OnClick(object sender, RoutedEventArgs e)

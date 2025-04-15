@@ -4,7 +4,6 @@ using CanFrameBuilder.Utils;
 using CanFrameBuilder.View;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
 using System.Windows;
 
@@ -87,17 +86,23 @@ namespace CanFrameBuilder.ViewModel
                 Title = "Pick CAN Frames JSON config file"
             };
 
-            var sucess = fileDialog.ShowDialog();
+            var success = fileDialog.ShowDialog();
 
-            if (sucess != true) return;
+            if (success != true) return;
 
             ConfigDirectory = fileDialog.FileName;
-            var canFrames = JSONHandler.LoadFrames(ConfigDirectory);
 
-            if (canFrames is null || canFrames.Count <= 0) return;
+            var configData = JSONHandler.LoadFromFile<ConfigData>(ConfigDirectory, "Config") ?? new ConfigData();
+
+            if (configData is null) return;
+
             Frames.Clear();
+            foreach (var frame in configData.Frames)
+            {
+                Frames.Add(frame);
+            }
 
-            foreach (var canFrame in canFrames) Frames.Add(canFrame);
+            Settings = configData.Settings;
         }
 
         private void OpenSettings()

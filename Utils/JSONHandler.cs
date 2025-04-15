@@ -12,27 +12,7 @@ namespace CanFrameBuilder.Utils
             WriteIndented = true
         };
 
-        internal static void SaveFrames(string configOutputPath, List<CANFrame> canFrames)
-        {
-            SaveToFile(configOutputPath, canFrames, "Frames");
-        }
-
-        internal static List<CANFrame> LoadFrames(string framesInputPath)
-        {
-            return LoadFromFile<List<CANFrame>>(framesInputPath, "Frames") ?? [];
-        }
-
-        internal static void SaveSettings(string settingsFilePath, Settings settings)
-        {
-            SaveToFile(settingsFilePath, settings, "Settings");
-        }
-
-        internal static Settings LoadSettings(string settingsPath)
-        {
-            return LoadFromFile<Settings>(settingsPath, "Settings") ?? new Settings();
-        }
-
-        private static void SaveToFile<T>(string filePath, T data, string dataType)
+        internal static void SaveToFile<T>(string filePath, T data, string dataType)
         {
             try
             {
@@ -46,7 +26,7 @@ namespace CanFrameBuilder.Utils
             }
         }
 
-        private static T? LoadFromFile<T>(string filePath, string dataType)
+        internal static T? LoadFromFile<T>(string filePath, string dataType)
         {
             try
             {

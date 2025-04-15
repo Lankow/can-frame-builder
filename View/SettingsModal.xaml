@@ -68,12 +68,6 @@
             <Label Content="Add Imports" VerticalAlignment="Center"/>
             <CheckBox IsChecked="{Binding Settings.AddImports, Mode=TwoWay}" Margin="5,5,0,0"/>
         </StackPanel>
-        
-        <!-- Load Settings Button -->
-        <Button Width="120" Height="30" Grid.Row="9" Grid.Column="1" Command="{Binding LoadCommand}" Margin="5" Content="Load"/>
-        
-        <!-- Save Settings Button -->
-        <Button Width="120" Height="30" Grid.Row="10" Grid.Column="1" Click="SaveSettingsBtn_OnClick" Margin="5" Content="Save"/>
 
         <!-- Close Button -->
         <Button Name="CloseSettingsBtn" Width="120" Height="30" Grid.Row="11" Grid.Column="1" Click="CloseSettingsBtn_OnClick" Margin="5" Content="Close"/>

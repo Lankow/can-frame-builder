@@ -56,8 +56,8 @@
                 </Grid.RowDefinitions>
                 
                 <Button Width="120" Height="30" Command="{Binding SettingsCommand}" Grid.Row="0" Margin="5" Content="Settings"/>
-                <Button Width="120" Height="30" Command="{Binding LoadCommand}" Margin="5" Grid.Row="1" Content="Load Frames"/>
-                <Button Width="120" Height="30" Name="BtnSaveConfig" Click="BtnSaveFrames_OnClick" Margin="5" Grid.Row="2"  Content="Save Frames"/>
+                <Button Width="120" Height="30" Command="{Binding LoadCommand}" Margin="5" Grid.Row="1" Content="Load Config"/>
+                <Button Width="120" Height="30" Name="BtnSaveConfig" Click="BtnSaveConfig_OnClick" Margin="5" Grid.Row="2"  Content="Save Config"/>
                 <Button Name="BtnGenerate" Width="120" Height="30" Click="BtnGenerate_OnClick" Margin="5" Grid.Row="3" Content="Generate"/>
             </Grid>
         </Grid>

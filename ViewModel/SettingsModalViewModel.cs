@@ -11,7 +11,6 @@ namespace CanFrameBuilder.ViewModel
     {
         public RelayCommand OutputCommand => new(execute => PickOutput());
         public RelayCommand SolutionCommand => new(execute => PickSolution());
-        public RelayCommand LoadCommand => new(execute => LoadSettings());
 
         private Settings _settings = settings;
 
@@ -96,23 +95,6 @@ namespace CanFrameBuilder.ViewModel
             {
                 Settings.Solution = solution;
             }
-        }
-
-        private void LoadSettings()
-        {
-            var loadSettingsDialog = new SaveFileDialog
-            {
-                Filter = "JSON Setting File | *.json",
-                InitialDirectory = Directory.GetCurrentDirectory(),
-                Title = "Load Setting JSON file"
-            };
-
-            var sucess = loadSettingsDialog.ShowDialog();
-
-            if (sucess != true) return;
-            var settingsDirectory = loadSettingsDialog.FileName;
-
-            Settings = JSONHandler.LoadSettings(settingsDirectory);
         }
     }
 }

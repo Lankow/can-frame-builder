@@ -14,6 +14,7 @@
         public short MSB { get; set; }
         public short BitCount { get; set; }
         public byte DefaultValue { get; set; }
+        public bool IsToGenerate { get; set; }
         public ByteOrder ByteOrder { get; set; }
     }
 }
