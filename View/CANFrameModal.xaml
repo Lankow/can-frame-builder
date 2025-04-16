@@ -65,9 +65,29 @@
         </Grid>
 
         <!-- Signals List Section -->
-        <DataGrid ItemsSource="{Binding Frame.Signals, Mode=TwoWay}" SelectionMode="Single" SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
-                  CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False"
-                  Grid.Row="1" Grid.Column="0" Margin="5">
+        <DataGrid ItemsSource="{Binding Frame.Signals, Mode=TwoWay}" 
+          SelectionMode="Single" 
+          SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+          CanUserAddRows="False" 
+          CanUserDeleteRows="False" 
+          AutoGenerateColumns="False"
+          Grid.Row="1" 
+          Grid.Column="0" 
+          Margin="5">
+
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Generated}" Value="True">
+                            <Setter Property="Background" Value="LightGreen"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Generated}" Value="False">
+                            <Setter Property="Background" Value="LightCoral"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="2*"/>
                 <DataGridTextColumn Header="LSB" Binding="{Binding LSB}" Width="1*"/>
@@ -99,6 +119,10 @@
                 <ComboBox SelectedValue="{Binding SelectedItem.ByteOrder}" ItemsSource="{Binding Source={StaticResource byteOrderEnum}}" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
                 <Label Content="Default Value"/>
                 <customControls:NumberBox Text="{Binding SelectedItem.DefaultValue, UpdateSourceTrigger=PropertyChanged}" MinValue="0" MaxValue="255" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Generate"/>
+                    <CheckBox IsChecked="{Binding SelectedItem.Generated, Mode=TwoWay}" Margin="6,6,0,0" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
+                </StackPanel>
             </StackPanel>
         </StackPanel>
 

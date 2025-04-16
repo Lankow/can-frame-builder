@@ -8,6 +8,7 @@ public class CANFrame
     public int Id { get; set; }
     public int Dlc { get; set; }
     public int Channel { get; set; }
+        public bool Generated { get; set; } = true;
 
     public ObservableCollection<Signal> Signals { get; set; }
 
