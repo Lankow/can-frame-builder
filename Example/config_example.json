@@ -16,6 +16,7 @@
       "Id": 23,
       "Dlc": 8,
       "Channel": 1,
+      "Generated": false,
       "Signals": [
         {
           "Name": "EngineRPM",
@@ -51,6 +52,7 @@
       "Id": 562,
       "Dlc": 8,
       "Channel": 2,
+      "Generated": true,
       "Signals": [
         {
           "Name": "BrakePressure",
@@ -86,6 +88,7 @@
       "Id": 733,
       "Dlc": 8,
       "Channel": 3,
+      "Generated": true,
       "Signals": [
         {
           "Name": "CabinTemperature",
