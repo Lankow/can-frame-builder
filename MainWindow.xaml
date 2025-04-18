@@ -16,7 +16,27 @@
         </Grid.ColumnDefinitions>
 
         <!-- CAN Frames List -->
-        <ListView Grid.Row="0" Grid.Column="0" Name="FrameEntries" ItemsSource="{Binding Frames}" SelectedItem="{Binding SelectedItem}" Margin="5">
+        <ListView Grid.Row="0" 
+          Grid.Column="0" 
+          Name="FrameEntries" 
+          ItemsSource="{Binding Frames}" 
+          SelectedItem="{Binding SelectedItem}" 
+          Margin="5" 
+          SelectionMode="Single">
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Generated}" Value="True">
+                            <Setter Property="Background" Value="LightGreen"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Generated}" Value="False">
+                            <Setter Property="Background" Value="LightCoral"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
+
             <ListView.View>
                 <GridView ColumnHeaderToolTip="CAN Frames">
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="CAN Frame Name" Width="130"/>

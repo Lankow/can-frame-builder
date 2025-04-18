@@ -5,6 +5,7 @@ using CanFrameBuilder.View;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Runtime;
 using System.Windows;
 
 namespace CanFrameBuilder.ViewModel
@@ -17,6 +18,7 @@ namespace CanFrameBuilder.ViewModel
         public string ConfigDirectory { get; set; } = Directory.GetCurrentDirectory();
 
         private CANFrame? _selectedItem = null;
+
         public CANFrame? SelectedItem
         {
             get => _selectedItem;
