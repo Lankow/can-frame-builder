@@ -3,7 +3,7 @@ using System.IO;
 using System.Text.Json;
 using System.Windows;
 
-namespace CanFrameBuilder.Utils
+namespace CanFrameBuilder.Utility
 {
     internal class JSONHandler
     {

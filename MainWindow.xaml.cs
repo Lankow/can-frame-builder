@@ -1,5 +1,5 @@
 ﻿using CanFrameBuilder.Model;
-using CanFrameBuilder.Utils;
+using CanFrameBuilder.Utility;
 using CanFrameBuilder.ViewModel;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
@@ -47,7 +47,8 @@ namespace CanFrameBuilder
         {
             if (Directory.Exists(Settings.OutputDirectory) && !Settings.OutputDirectory.Equals(string.Empty))
             {
-                CANFrameGenerator.GenerateClasses([.. Frames], Settings.OutputDirectory);
+                var generator = new SourceCodeGenerator(Settings);
+                generator.Generate([.. Frames]);
             }
             else
             {

@@ -1,7 +1,4 @@
 ﻿using CanFrameBuilder.Model;
-using CanFrameBuilder.Utils;
-using Microsoft.Win32;
-using System.IO;
 using System.Windows;
 
 namespace CanFrameBuilder.ViewModel
@@ -10,7 +7,7 @@ namespace CanFrameBuilder.ViewModel
     {
         public Settings Settings => (DataContext as SettingsModalViewModel)?.Settings ?? new Settings();
 
-        public SettingsModal(Model.Settings settings)
+        public SettingsModal(Settings settings)
         {
             InitializeComponent();
             DataContext = new SettingsModalViewModel(settings);

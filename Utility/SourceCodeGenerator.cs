@@ -1,0 +1,136 @@
+﻿using CanFrameBuilder.Model;
+using System.IO;
+using System.Xml.Linq;
+
+namespace CanFrameBuilder.Utility
+{
+    public class SourceCodeGenerator
+    {
+        private readonly Settings _settings;
+
+        public SourceCodeGenerator(Settings settings)
+        {
+            _settings = settings;
+        }
+
+        public void Generate(List<CANFrame> frames)
+        {
+            foreach (var frame in frames)
+            {
+                var className = frame.Name ?? throw new InvalidOperationException("Frame Name is required");
+                var fileContent = GenerateClassContent(frame);
+                var filePath = Path.Combine(_settings.OutputDirectory, $"{className}.cs");
+
+                Directory.CreateDirectory(_settings.OutputDirectory);
+                File.WriteAllText(filePath, fileContent);
+
+                if (_settings.AddToProject)
+                {
+                    foreach (var project in _settings.Solution.Projects)
+                    {
+                        AddFileToProject(project.CsProjPath, filePath);
+                    }
+                }
+            }
+        }
+
+        private string GenerateClassContent(CANFrame frame)
+        {
+            var cw = new CodeWriter();
+
+            // Imports
+            if (_settings.AddImports)
+            {
+                foreach (var import in _settings.Imports.Split(' ', StringSplitOptions.RemoveEmptyEntries))
+                {
+                    cw.WriteLine($"using {import};");
+                }
+                cw.WriteLine();
+            }
+
+            // Namespace
+            string? ns = null;
+            if (_settings.AddNamespace)
+            {
+                ns = CalculateNamespace(_settings.Solution.Path, _settings.OutputDirectory);
+                cw.WriteLine($"namespace {ns}");
+                cw.WriteLine("{");
+                cw.Indent();
+            }
+
+            var className = frame.Name!;
+            cw.WriteLine($"public class {className} : CANFrame");
+            cw.WriteLine("{");
+            cw.Indent();
+
+            // Constructor
+            cw.WriteLine($"public {className}() : base()");
+            cw.WriteLine("{");
+            cw.Indent();
+            cw.WriteLine($"Id = {frame.Id};");
+            cw.WriteLine($"Dlc = {frame.Dlc};");
+            cw.WriteLine($"Channel = {frame.Channel};");
+            cw.Unindent();
+            cw.WriteLine("}");
+            cw.WriteLine();
+
+            // Signals
+            foreach (var signal in frame.Signals)
+            {
+                var byteOrder = signal.ByteOrder == ByteOrder.Motorola ? "Motorola" : "Intel";
+                cw.WriteLine($"[Signal(LSB = {signal.LSB}, MSB = {signal.MSB}, BitCount = {signal.BitCount}, ByteOrder = ByteOrder.{byteOrder})]");
+                cw.WriteLine($"public byte {signal.Name} = 0;");
+            }
+
+            cw.Unindent();
+            cw.WriteLine("}");
+
+            if (_settings.AddNamespace)
+            {
+                cw.Unindent();
+                cw.WriteLine("}");
+            }
+
+            return cw.ToString();
+        }
+
+        private string CalculateNamespace(string solutionPath, string outputDirectory)
+        {
+            var solutionDir = Path.GetDirectoryName(solutionPath)!;
+            var relativePath = Path.GetRelativePath(solutionDir, outputDirectory);
+
+            var parts = relativePath
+                .Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
+                .Where(part => !string.IsNullOrWhiteSpace(part))
+                .Select(part => part.Replace(" ", "_"));
+
+            var rootNamespace = Path.GetFileNameWithoutExtension(solutionPath);
+            return $"{rootNamespace}.{string.Join('.', parts)}";
+        }
+
+        private void AddFileToProject(string csprojPath, string filePath)
+        {
+            var relativePath = Path.GetRelativePath(Path.GetDirectoryName(csprojPath)!, filePath);
+            var doc = XDocument.Load(csprojPath);
+            var ns = doc.Root?.Name.Namespace ?? "";
+
+            var itemGroup = doc.Descendants(ns + "ItemGroup")
+                .FirstOrDefault(ig => ig.Elements(ns + "Compile").Any());
+
+            if (itemGroup == null)
+            {
+                itemGroup = new XElement(ns + "ItemGroup");
+                doc.Root?.Add(itemGroup);
+            }
+
+            bool alreadyIncluded = itemGroup.Elements(ns + "Compile")
+                .Any(c => c.Attribute("Include")?.Value.Equals(relativePath, StringComparison.OrdinalIgnoreCase) == true);
+
+            if (!alreadyIncluded)
+            {
+                itemGroup.Add(new XElement(ns + "Compile", new XAttribute("Include", relativePath)));
+                doc.Save(csprojPath);
+            }
+        }
+    }
+}
