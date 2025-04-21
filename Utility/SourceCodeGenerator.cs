@@ -6,6 +6,9 @@ namespace CanFrameBuilder.Utility
 {
     public class SourceCodeGenerator
     {
+        private const string NonGeneratedStartTag = "// NON-GENERATED : START";
+        private const string NonGeneratedEndTag = "// NON-GENERATED : END";
+
         private readonly Settings _settings;
 
         public SourceCodeGenerator(Settings settings)
@@ -18,10 +21,21 @@ namespace CanFrameBuilder.Utility
             foreach (var frame in frames)
             {
                 var className = frame.Name ?? throw new InvalidOperationException("Frame Name is required");
-                var fileContent = GenerateClassContent(frame);
                 var filePath = Path.Combine(_settings.OutputDirectory, $"{className}.cs");
 
                 Directory.CreateDirectory(_settings.OutputDirectory);
+
+                string preservedContent = string.Empty;
+                if (File.Exists(filePath))
+                {
+                    preservedContent = ExtractNonGeneratedBlock(File.ReadAllText(filePath));
+                }
+                else
+                {
+                    preservedContent = $"{NonGeneratedStartTag}\n\n{NonGeneratedEndTag}";
+                }
+
+                var fileContent = GenerateClassContent(frame, preservedContent);
                 File.WriteAllText(filePath, fileContent);
 
                 if (_settings.AddToProject)
@@ -34,11 +48,10 @@ namespace CanFrameBuilder.Utility
             }
         }
 
-        private string GenerateClassContent(CANFrame frame)
+        private string GenerateClassContent(CANFrame frame, string customCodeBlock)
         {
             var cw = new CodeWriter();
 
-            // Imports
             if (_settings.AddImports)
             {
                 foreach (var import in _settings.Imports.Split(' ', StringSplitOptions.RemoveEmptyEntries))
@@ -48,7 +61,6 @@ namespace CanFrameBuilder.Utility
                 cw.WriteLine();
             }
 
-            // Namespace
             string? ns = null;
             if (_settings.AddNamespace)
             {
@@ -82,6 +94,9 @@ namespace CanFrameBuilder.Utility
                 cw.WriteLine($"public byte {signal.Name} = 0;");
             }
 
+            cw.WriteLine();
+            cw.WriteLines(customCodeBlock.Split('\n').Select(line => line.TrimEnd()));
+
             cw.Unindent();
             cw.WriteLine("}");
 
@@ -92,6 +107,17 @@ namespace CanFrameBuilder.Utility
             }
 
             return cw.ToString();
+        }
+
+        private string ExtractNonGeneratedBlock(string fileContent)
+        {
+            var start = fileContent.IndexOf(NonGeneratedStartTag);
+            var end = fileContent.IndexOf(NonGeneratedEndTag);
+
+            if (start == -1 || end == -1 || end < start)
+                return $"{NonGeneratedStartTag}\n\n{NonGeneratedEndTag}";
+
+            return fileContent[start..(end + NonGeneratedEndTag.Length)];
         }
 
         private string CalculateNamespace(string solutionPath, string outputDirectory)
