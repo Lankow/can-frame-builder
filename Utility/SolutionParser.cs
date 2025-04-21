@@ -1,5 +1,6 @@
 using CanFrameBuilder.Model;
 using System.IO;
+using System.Runtime;
 using System.Text.RegularExpressions;
 using System.Windows;
 
@@ -35,7 +36,8 @@ namespace CanFrameBuilder.Utility
                     }
 
                     var projectName = match.Groups[1].Value;
-                    var csprojPath = match.Groups[2].Value;
+                    var solutionDirectory = Path.GetDirectoryName(solution.Path);
+                    var csprojPath = Path.Combine(solutionDirectory, match.Groups[2].Value);
 
                     solution.Projects.Add(new ProjectDetails(projectName, csprojPath));
                 }
