@@ -1,5 +1,4 @@
-﻿using CanFrameBuilder.Model;
-using System.IO;
+﻿using System.IO;
 using System.Text.Json;
 using System.Windows;
 

@@ -11,7 +11,6 @@
     {
         public string? Name { get; set; }
         public short LSB { get; set; }
-        public short MSB { get; set; }
         public short BitCount { get; set; }
         public byte DefaultValue { get; set; }
         public ByteOrder ByteOrder { get; set; }

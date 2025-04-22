@@ -90,7 +90,7 @@ namespace CanFrameBuilder.Utility
             foreach (var signal in frame.Signals)
             {
                 var byteOrder = signal.ByteOrder == ByteOrder.Motorola ? "Motorola" : "Intel";
-                cw.WriteLine($"[Signal(LSB = {signal.LSB}, MSB = {signal.MSB}, BitCount = {signal.BitCount}, ByteOrder = ByteOrder.{byteOrder})]");
+                cw.WriteLine($"[Signal(LSB = {signal.LSB}, BitCount = {signal.BitCount}, ByteOrder = ByteOrder.{byteOrder})]");
                 cw.WriteLine($"public byte {signal.Name} = 0;");
             }
 

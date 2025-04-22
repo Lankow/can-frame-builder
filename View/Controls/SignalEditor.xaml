@@ -21,10 +21,7 @@
         <TextBox Text="{Binding SelectedItem.Name, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
 
         <Label Content="LSB"/>
-        <customControls:NumberBox Text="{Binding SelectedItem.LSB, UpdateSourceTrigger=PropertyChanged}" MinValue="0" MaxValue="255" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
-
-        <Label Content="MSB"/>
-        <customControls:NumberBox Text="{Binding SelectedItem.MSB, UpdateSourceTrigger=PropertyChanged}" MinValue="0" MaxValue="255" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
+        <customControls:NumberBox Text="{Binding SelectedItem.LSB, UpdateSourceTrigger=PropertyChanged}" MinValue="0" MaxValue="{Binding SelectedItem.BitCount, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
 
         <Label Content="Bit Count"/>
         <customControls:NumberBox Text="{Binding SelectedItem.BitCount, UpdateSourceTrigger=PropertyChanged}" MinValue="0" MaxValue="255" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
