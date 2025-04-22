@@ -30,7 +30,7 @@
         <customControls:NumberBox Text="{Binding SelectedItem.LSB, UpdateSourceTrigger=PropertyChanged}" MinValue="0" MaxValue="{Binding SelectedItem.BitCount, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
 
         <Label Content="Bit Count"/>
-        <customControls:NumberBox Text="{Binding SelectedItem.BitCount, UpdateSourceTrigger=PropertyChanged}" MinValue="0" MaxValue="255" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
+        <customControls:NumberBox Text="{Binding SelectedItem.BitCount, UpdateSourceTrigger=PropertyChanged}" MinValue="1" MaxValue="255" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
 
         <Label Content="Byte Order"/>
         <ComboBox SelectedValue="{Binding SelectedItem.ByteOrder}" 
