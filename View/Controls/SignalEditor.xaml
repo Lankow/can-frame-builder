@@ -17,6 +17,12 @@
     </UserControl.Resources>
 
     <StackPanel>
+        <StackPanel HorizontalAlignment="Left">
+            <Button Name="AddSignalBtn" Command="{Binding AddCommand}" Width="130" Height="25" Margin="5" Content="Add New Signal"/>
+            <Button Name="RemoveSignalBtn" Command="{Binding DeleteCommand}" Width="130" Height="25" Margin="5" Content="Delete Signal"/>
+            <Button Name="ClearSignalBtn" Command="{Binding ClearCommand}" Width="130" Height="25" Margin="5" Content="Clear Signal"/>
+        </StackPanel>
+        
         <Label Content="Name"/>
         <TextBox Text="{Binding SelectedItem.Name, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
 

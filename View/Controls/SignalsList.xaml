@@ -11,6 +11,7 @@
               CanUserAddRows="False" 
               CanUserDeleteRows="False" 
               AutoGenerateColumns="False"
+              IsReadOnly="True"
               Margin="5"
               RowStyle="{StaticResource GeneratedRowStyle}">
         <DataGrid.Columns>
