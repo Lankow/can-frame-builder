@@ -49,7 +49,7 @@ namespace CanFrameBuilder.ViewModel
 
         private void EditFrame()
         {
-            var canFrameModal = new CANFrameModal(_selectedItem);
+            var canFrameModal = new CANFrameModal(_selectedItem.Clone());
             canFrameModal.ShowDialog();
 
             if (!canFrameModal.Success) return;
@@ -109,8 +109,12 @@ namespace CanFrameBuilder.ViewModel
 
         private void OpenSettings()
         {
-            var settingsModal = new SettingsModal(Settings);
+            var settingsModal = new SettingsModal(Settings.Clone());
             settingsModal.ShowDialog();
+
+            if (!settingsModal.Success) return;
+
+            Settings = settingsModal.Settings;
         }
     }
 }

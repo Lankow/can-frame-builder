@@ -90,8 +90,10 @@ namespace CanFrameBuilder.Utility
             foreach (var signal in frame.Signals)
             {
                 var byteOrder = signal.ByteOrder == ByteOrder.Motorola ? "Motorola" : "Intel";
+                var variableType = GetVariableType(signal.BitCount);
+
                 cw.WriteLine($"[Signal(LSB = {signal.LSB}, BitCount = {signal.BitCount}, ByteOrder = ByteOrder.{byteOrder})]");
-                cw.WriteLine($"public byte {signal.Name} = 0;");
+                cw.WriteLine($"public {variableType} {signal.Name} = {signal.DefaultValue};");
             }
 
             cw.WriteLine();
@@ -132,6 +134,17 @@ namespace CanFrameBuilder.Utility
 
             var rootNamespace = Path.GetFileNameWithoutExtension(solutionPath);
             return $"{rootNamespace}.{string.Join('.', parts)}";
+        }
+
+        private string GetVariableType(ushort bitCount)
+        {
+            return bitCount switch
+            {
+                > 32 => "ulong",
+                > 16 => "uint",
+                > 8 => "ushort",
+                _ => "byte"
+            };
         }
 
         private void AddFileToProject(string csprojPath, string filePath)

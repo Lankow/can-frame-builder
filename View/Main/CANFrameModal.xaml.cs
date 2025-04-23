@@ -1,8 +1,5 @@
-﻿using CanFrameBuilder.Model;
-using CanFrameBuilder.ViewModel;
-using System.Text.RegularExpressions;
+﻿using CanFrameBuilder.ViewModel;
 using System.Windows;
-using System.Windows.Input;
 
 namespace CanFrameBuilder.View
 {
