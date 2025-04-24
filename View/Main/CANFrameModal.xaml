@@ -4,13 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CanFrameBuilder.View"
-        xmlns:controls="clr-namespace:CanFrameBuilder.View.Controls"
+        xmlns:customControls="clr-namespace:CanFrameBuilder.View.CustomControls"
         xmlns:model="clr-namespace:CanFrameBuilder.Model"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="Manage CAN Frame" 
-        Height="720" Width="630" 
-        MinHeight="700" MinWidth="600">
+        Height="720" Width="650" 
+        MinHeight="700" MinWidth="650">
 
     <Window.Resources>
         <ObjectDataProvider x:Key="byteOrderEnum" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
@@ -20,22 +20,110 @@
         </ObjectDataProvider>
     </Window.Resources>
 
+    <!-- Main Grid layout -->
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <!-- Header/Title Section -->
             <RowDefinition Height="*"/>
+            <!-- Main Content Section -->
             <RowDefinition Height="Auto"/>
+            <!-- Action buttons Section -->
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
+            <!-- Frame Info & Signals List -->
             <ColumnDefinition Width="1*"/>
+            <!-- Signal Editor -->
         </Grid.ColumnDefinitions>
 
-        <controls:FrameInfo Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
-        <controls:SignalsList Grid.Row="1" Grid.Column="0"/>
-        <controls:SignalEditor Grid.Row="1" Grid.Column="1"/>
+        <!-- Frame Info Section -->
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
 
+            <!-- Frame Info Inputs -->
+            <TextBlock Text="Name" Margin="5" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+            <TextBox Name="FrameNameInput" Text="{Binding Frame.Name}" Margin="5" Grid.Row="0" Grid.Column="1" PreviewTextInput="VarValidationTextBox"/>
+
+            <TextBlock Text="Frame ID" Margin="5" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2"/>
+            <customControls:NumberBox Text="{Binding Frame.Id}" MinValue="0" MaxValue="255" Margin="5" Grid.Row="0" Grid.Column="3"/>
+
+            <TextBlock Text="DLC" Margin="5" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
+            <customControls:NumberBox Text="{Binding Frame.Dlc}" MinValue="0" MaxValue="255" Margin="5" Grid.Row="1" Grid.Column="1"/>
+
+            <TextBlock Text="Channel" Margin="5" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2"/>
+            <customControls:NumberBox Text="{Binding Frame.Channel}" MinValue="0" MaxValue="255" Margin="5" Grid.Row="1" Grid.Column="3"/>
+
+            <TextBlock Text="Generate" Margin="5" VerticalAlignment="Center" Grid.Row="0" Grid.Column="4"/>
+            <CheckBox IsChecked="{Binding Frame.Generated, Mode=TwoWay}" Margin="3,6,0,0" Grid.Row="0" Grid.Column="5"/>
+        </Grid>
+
+        <!-- Signals List Section -->
+        <DataGrid ItemsSource="{Binding Frame.Signals, Mode=TwoWay}" 
+                  SelectionMode="Single" 
+                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                  CanUserAddRows="False" 
+                  CanUserDeleteRows="False" 
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  Margin="5"
+                  Grid.Row="1" Grid.Column="0"
+                  RowStyle="{StaticResource GeneratedRowStyle}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="2*"/>
+                <DataGridTextColumn Header="LSB" Binding="{Binding LSB}" Width="1*"/>
+                <DataGridTextColumn Header="Bit Count" Binding="{Binding BitCount}" Width="2*"/>
+                <DataGridTextColumn Header="Byte Order" Binding="{Binding ByteOrder}" Width="2*"/>
+                <DataGridTextColumn Header="Default Value" Binding="{Binding DefaultValue}" Width="2*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Signal Editor Section -->
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="5">
+            <!-- Signal Action Buttons (Add, Remove, Clear) -->
+            <StackPanel HorizontalAlignment="Left">
+                <Button Name="AddSignalBtn" Command="{Binding AddCommand}" Width="130" Height="25" Margin="5" Content="Add New Signal"/>
+                <Button Name="RemoveSignalBtn" Command="{Binding DeleteCommand}" Width="130" Height="25" Margin="5" Content="Delete Signal"/>
+                <Button Name="ClearSignalBtn" Command="{Binding ClearCommand}" Width="130" Height="25" Margin="5" Content="Clear Signal"/>
+            </StackPanel>
+
+            <!-- Inputs for Signal Editing -->
+            <Label Content="Name"/>
+            <TextBox Text="{Binding SelectedItem.Name, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
+
+            <Label Content="LSB"/>
+            <customControls:NumberBox Text="{Binding SelectedItem.LSB, UpdateSourceTrigger=PropertyChanged}" MinValue="0" MaxValue="{Binding SelectedItem.BitCount, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
+
+            <Label Content="Bit Count"/>
+            <customControls:NumberBox Text="{Binding SelectedItem.BitCount, UpdateSourceTrigger=PropertyChanged}" MinValue="{Binding SelectedItem.LSB, UpdateSourceTrigger=PropertyChanged}" MaxValue="255" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
+
+            <Label Content="Byte Order"/>
+            <ComboBox SelectedValue="{Binding SelectedItem.ByteOrder}" 
+                      ItemsSource="{Binding Source={StaticResource byteOrderEnum}}" 
+                      IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
+
+            <Label Content="Default Value"/>
+            <customControls:NumberBox Text="{Binding SelectedItem.DefaultValue, UpdateSourceTrigger=PropertyChanged}" MinValue="0" MaxValue="255" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
+
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Generate"/>
+                <CheckBox IsChecked="{Binding SelectedItem.Generated, Mode=TwoWay}" Margin="6,6,0,0" IsEnabled="{Binding SelectedItem, TargetNullValue=false}"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Action Buttons (Submit & Cancel) -->
         <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Name="SubmitFrameBtn" Width="120" Height="30" Click="SubmitFrameBtn_OnClick" Margin="5" Content="Submit"/>
             <Button Name="CancelFrameBtn" Width="120" Height="30" Click="CancelFrameBtn_OnClick" Margin="5" Content="Cancel"/>
