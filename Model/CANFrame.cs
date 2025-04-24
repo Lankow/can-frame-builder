@@ -1,5 +1,6 @@
-﻿using CanFrameBuilder.Model;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+
+namespace CanFrameBuilder.Model;
 
 public class CANFrame
 {

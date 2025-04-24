@@ -5,96 +5,95 @@ using Microsoft.Win32;
 using System.IO;
 using System.Windows;
 
-namespace CanFrameBuilder.ViewModel
+namespace CanFrameBuilder.ViewModel;
+
+public class SettingsModalViewModel(Settings settings) : ViewModelBase
 {
-    public class SettingsModalViewModel(Settings settings) : ViewModelBase
+    public RelayCommand OutputCommand => new(execute => PickOutput());
+    public RelayCommand SolutionCommand => new(execute => PickSolution());
+
+    private Settings _settings = settings;
+
+    public Settings Settings
     {
-        public RelayCommand OutputCommand => new(execute => PickOutput());
-        public RelayCommand SolutionCommand => new(execute => PickSolution());
-
-        private Settings _settings = settings;
-
-        public Settings Settings
+        get => _settings;
+        set
         {
-            get => _settings;
-            set
-            {
-                _settings = value;
-                OnPropertyChanged();
-            }
+            _settings = value;
+            OnPropertyChanged();
         }
-        public string SolutionPath
+    }
+    public string SolutionPath
+    {
+        get => _settings.Solution.Path;
+        set
         {
-            get => _settings.Solution.Path;
-            set
-            {
-                _settings.Solution.Path = value;
-                OnPropertyChanged();
-            }
+            _settings.Solution.Path = value;
+            OnPropertyChanged();
         }
+    }
 
-        public string OutputDirectory
+    public string OutputDirectory
+    {
+        get => _settings.OutputDirectory;
+        set
         {
-            get => _settings.OutputDirectory;
-            set
-            {
-                _settings.OutputDirectory = value;
-                OnPropertyChanged();
-            }
+            _settings.OutputDirectory = value;
+            OnPropertyChanged();
         }
+    }
 
-        private void PickOutput()
+    private void PickOutput()
+    {
+        var dialog = new OpenFolderDialog
         {
-            var dialog = new OpenFolderDialog
-            {
-                InitialDirectory = Settings.OutputDirectory == "" ? Directory.GetCurrentDirectory() : Settings.OutputDirectory
-            };
+            InitialDirectory = Settings.OutputDirectory == "" ? Directory.GetCurrentDirectory() : Settings.OutputDirectory
+        };
 
-            var result = dialog.ShowDialog();
+        var result = dialog.ShowDialog();
 
-            if (result != true) return;
+        if (result != true) return;
 
-            var path = dialog.FolderName;
+        var path = dialog.FolderName;
 
-            if (SolutionPath != "" && !PathHelper.IsSubPath(path, SolutionPath))
-            {
-                MessageBox.Show("Generation output has to be set in the same directory as Solution. Update Solution path.",
-                    "Invalid Solution Path", MessageBoxButton.OK, MessageBoxImage.Warning);
-                SolutionPath = "";
-            }
-
-            OutputDirectory = path;
+        if (SolutionPath != "" && !PathHelper.IsSubPath(path, SolutionPath))
+        {
+            MessageBox.Show("Generation output has to be set in the same directory as Solution. Update Solution path.",
+                "Invalid Solution Path", MessageBoxButton.OK, MessageBoxImage.Warning);
+            SolutionPath = "";
         }
 
-        private void PickSolution()
+        OutputDirectory = path;
+    }
+
+    private void PickSolution()
+    {
+        var dialog = new OpenFileDialog
         {
-            var dialog = new OpenFileDialog
-            {
-                Filter = "C# Solution File | *.sln",
-                InitialDirectory = Settings.Solution.Path == "" ? Directory.GetCurrentDirectory()  : Settings.Solution.Path,
-                Title = "Pick Solution File"
-            };
+            Filter = "C# Solution File | *.sln",
+            InitialDirectory = Settings.Solution.Path == "" ? Directory.GetCurrentDirectory() : Settings.Solution.Path,
+            Title = "Pick Solution File"
+        };
 
-            var result = dialog.ShowDialog();
+        var result = dialog.ShowDialog();
 
-            if (result != true) return;
+        if (result != true) return;
 
-            var filePath = dialog.FileName;
+        var filePath = dialog.FileName;
 
-            if (OutputDirectory != "" && !PathHelper.IsSubPath(OutputDirectory, filePath))
-            {
-                MessageBox.Show("Solution has to be set in the same directory as Generation output. Update Output path.",
-                    "Invalid Output Path", MessageBoxButton.OK, MessageBoxImage.Warning);
-                OutputDirectory = "";
-            }
-            
-            SolutionPath = dialog.FileName;
-            
-            var solution = Settings.Solution;
-            if (SolutionParser.ExtractProjects(ref solution))
-            {
-                Settings.Solution = solution;
-            }
+        if (OutputDirectory != "" && !PathHelper.IsSubPath(OutputDirectory, filePath))
+        {
+            MessageBox.Show("Solution has to be set in the same directory as Generation output. Update Output path.",
+                "Invalid Output Path", MessageBoxButton.OK, MessageBoxImage.Warning);
+            OutputDirectory = "";
+        }
+
+        SolutionPath = dialog.FileName;
+
+        var solution = Settings.Solution;
+        if (SolutionParser.ExtractProjects(ref solution))
+        {
+            Settings.Solution = solution;
         }
     }
 }

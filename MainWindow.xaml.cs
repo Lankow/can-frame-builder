@@ -7,53 +7,52 @@ using System.IO;
 using System.Windows;
 
 
-namespace CanFrameBuilder
+namespace CanFrameBuilder;
+
+public partial class MainWindow : Window
 {
-    public partial class MainWindow : Window
+    public ObservableCollection<CANFrame> Frames => (DataContext as MainWindowViewModel)?.Frames ?? [];
+    public Settings Settings => (DataContext as MainWindowViewModel)?.Settings ?? new Settings();
+
+    public MainWindow()
     {
-        public ObservableCollection<CANFrame> Frames => (DataContext as MainWindowViewModel)?.Frames ?? [];
-        public Settings Settings => (DataContext as MainWindowViewModel)?.Settings ?? new Settings();
+        InitializeComponent();
+        DataContext = new MainWindowViewModel();
+    }
 
-        public MainWindow()
+    private void BtnSaveConfig_OnClick(object sender, RoutedEventArgs e)
+    {
+        var saveFileDialog = new SaveFileDialog
         {
-            InitializeComponent();
-            DataContext = new MainWindowViewModel();
+            Filter = "JSON Config Files | *.json",
+            InitialDirectory = Directory.GetCurrentDirectory(),
+            Title = "Save Config file as JSON"
+        };
+
+        var success = saveFileDialog.ShowDialog();
+        if (success != true) return;
+
+        var configOutputPath = saveFileDialog.FileName;
+
+        var configData = new ConfigData()
+        {
+            Frames = Frames,
+            Settings = Settings
+        };
+
+        JSONHandler.SaveToFile(configOutputPath, configData, "Config");
+    }
+
+    private void BtnGenerate_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (Directory.Exists(Settings.OutputDirectory) && !Settings.OutputDirectory.Equals(string.Empty))
+        {
+            var generator = new SourceCodeGenerator(Settings);
+            generator.Generate([.. Frames]);
         }
-
-        private void BtnSaveConfig_OnClick(object sender, RoutedEventArgs e)
+        else
         {
-            var saveFileDialog = new SaveFileDialog
-            {
-                Filter = "JSON Config Files | *.json",
-                InitialDirectory = Directory.GetCurrentDirectory(),
-                Title = "Save Config file as JSON"
-            };
-
-            var success = saveFileDialog.ShowDialog();
-            if (success != true) return;
-
-            var configOutputPath = saveFileDialog.FileName;
-
-            var configData = new ConfigData()
-            {
-                Frames = Frames,
-                Settings = Settings
-            };
-
-            JSONHandler.SaveToFile(configOutputPath, configData, "Config");
-        }
-
-        private void BtnGenerate_OnClick(object sender, RoutedEventArgs e)
-        {
-            if (Directory.Exists(Settings.OutputDirectory) && !Settings.OutputDirectory.Equals(string.Empty))
-            {
-                var generator = new SourceCodeGenerator(Settings);
-                generator.Generate([.. Frames]);
-            }
-            else
-            {
-                MessageBox.Show("Generation requires VALID Output path.", "INVALID OUTPUT PATH", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            MessageBox.Show("Generation requires VALID Output path.", "INVALID OUTPUT PATH", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }
