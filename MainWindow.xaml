@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CanFrameBuilder"
         mc:Ignorable="d"
-        Title="CAN Frame Builder" MinHeight="700" Height="700" MinWidth="600" Width="600">
+        Title="CAN Frame Builder" MinHeight="550" Height="550" MinWidth="600" Width="600">
     <Grid Margin="10">
         <!-- Define Main Grid Layout -->
         <Grid.ColumnDefinitions>
