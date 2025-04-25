@@ -33,7 +33,7 @@ public class SourceCodeGenerator(Settings settings)
             var fileContent = GenerateClassContent(frame, preservedContent);
             File.WriteAllText(filePath, fileContent);
 
-            if (_settings.AddToProject)
+            if (_settings.AddToProject && _settings.Solution.Path != "")
             {
                 foreach (var project in _settings.Solution.Projects)
                 {
@@ -47,7 +47,7 @@ public class SourceCodeGenerator(Settings settings)
     {
         var cw = new CodeWriter();
 
-        if (_settings.AddImports)
+        if (_settings.AddImports && _settings.Imports != "")
         {
             foreach (var import in _settings.Imports.Split(' ', StringSplitOptions.RemoveEmptyEntries))
             {
@@ -57,7 +57,7 @@ public class SourceCodeGenerator(Settings settings)
         }
 
         string? ns = null;
-        if (_settings.AddNamespace)
+        if (_settings.AddNamespace && _settings.Solution.Path != "")
         {
             ns = CalculateNamespace(_settings.Solution.Path, _settings.OutputDirectory);
             cw.WriteLine($"namespace {ns}");
@@ -97,7 +97,7 @@ public class SourceCodeGenerator(Settings settings)
         cw.Unindent();
         cw.WriteLine("}");
 
-        if (_settings.AddNamespace)
+        if (_settings.AddNamespace && _settings.Solution.Path != "")
         {
             cw.Unindent();
             cw.WriteLine("}");

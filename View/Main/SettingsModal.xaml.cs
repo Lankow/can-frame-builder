@@ -17,9 +17,11 @@ public partial class SettingsModal : Window
 
     private void SaveSettingsBtn_OnClick(object sender, RoutedEventArgs e)
     {
-        string? imports = Settings?.Imports;
+        if (Settings.Imports == null) return;
 
-        if (string.IsNullOrWhiteSpace(imports) || !IsValidImports(imports))
+        Settings.Imports = Settings.Imports.Trim();
+
+        if (!IsValidImports(Settings.Imports))
         {
             MessageBox.Show("Only space-separated Namespace.ClassName entries allowed (e.g., Vector.CANoe.Runtime).",
                 "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Error);

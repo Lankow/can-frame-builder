@@ -4,10 +4,10 @@ namespace CanFrameBuilder.Model;
 
 public class CANFrame
 {
-    public string? Name { get; set; }
-    public uint Id { get; set; }
-    public uint Dlc { get; set; }
-    public uint Channel { get; set; }
+    public string? Name { get; set; } = "";
+    public uint Id { get; set; } = 0;
+    public uint Dlc { get; set; } = 1;
+    public uint Channel { get; set; } = 0;
     public bool Generated { get; set; } = true;
 
     public ObservableCollection<Signal> Signals { get; set; } = [];

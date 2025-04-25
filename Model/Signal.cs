@@ -9,11 +9,11 @@ public enum ByteOrder
 
 public class Signal
 {
-    public string? Name { get; set; }
-    public ushort LSB { get; set; }
-    public ushort BitCount { get; set; }
-    public uint DefaultValue { get; set; }
-    public ByteOrder ByteOrder { get; set; }
+    public string? Name { get; set; } = "";
+    public ushort LSB { get; set; } = 0;
+    public ushort BitCount { get; set; } = 1;
+    public uint DefaultValue { get; set; } = 0;
+    public ByteOrder ByteOrder { get; set; } = ByteOrder.Default;
     public bool Generated { get; set; } = true;
 
     public Signal Clone()

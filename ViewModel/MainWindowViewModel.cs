@@ -33,7 +33,9 @@ public class MainWindowViewModel : ViewModelBase
     public RelayCommand DeleteCommand => new(execute => DeleteFrame(), canExecute => _selectedItem != null);
     public RelayCommand ClearCommand => new(execute => ClearFrames(), canExecute => Frames.Count > 0);
     public RelayCommand LoadCommand => new(execute => LoadConfig());
+    public RelayCommand SaveCommand => new(execute => SaveConfig());
     public RelayCommand SettingsCommand => new(execute => OpenSettings());
+    public RelayCommand GenerateCommand => new(execute => GenerateOutput(), canExecute => Settings.OutputDirectory != "");
 
     private void AddFrame()
     {
@@ -106,6 +108,29 @@ public class MainWindowViewModel : ViewModelBase
         Settings = configData.Settings;
     }
 
+    private void SaveConfig()
+    {
+        var saveFileDialog = new SaveFileDialog
+        {
+            Filter = "JSON Config Files | *.json",
+            InitialDirectory = Directory.GetCurrentDirectory(),
+            Title = "Save Config file as JSON"
+        };
+
+        var success = saveFileDialog.ShowDialog();
+        if (success != true) return;
+
+        var configOutputPath = saveFileDialog.FileName;
+
+        var configData = new ConfigData()
+        {
+            Frames = Frames,
+            Settings = Settings
+        };
+
+        JSONHandler.SaveToFile(configOutputPath, configData, "Config");
+    }
+
     private void OpenSettings()
     {
         var settingsModal = new SettingsModal(Settings.Clone());
@@ -114,5 +139,18 @@ public class MainWindowViewModel : ViewModelBase
         if (!settingsModal.Success) return;
 
         Settings = settingsModal.Settings;
+    }
+
+    private void GenerateOutput()
+    {
+        if (Directory.Exists(Settings.OutputDirectory) && !Settings.OutputDirectory.Equals(string.Empty))
+        {
+            var generator = new SourceCodeGenerator(Settings);
+            generator.Generate([.. Frames]);
+        }
+        else
+        {
+            MessageBox.Show("Generation requires VALID Output path.", "INVALID OUTPUT PATH", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 }

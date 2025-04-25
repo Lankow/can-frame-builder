@@ -49,7 +49,7 @@
       "Id": 562,
       "Dlc": 8,
       "Channel": 2,
-      "Generated": true,
+      "Generated": false,
       "Signals": [
         {
           "Name": "BrakePressure",
@@ -105,6 +105,335 @@
           "LSB": 12,
           "BitCount": 4,
           "DefaultValue": 0,
+          "ByteOrder": 0,
+          "Generated": true
+        }
+      ]
+    },
+    {
+      "Name": "DoorStatus",
+      "Id": 100,
+      "Dlc": 8,
+      "Channel": 1,
+      "Generated": true,
+      "Signals": [
+        {
+          "Name": "FrontLeft",
+          "LSB": 0,
+          "BitCount": 1,
+          "DefaultValue": 0,
+          "ByteOrder": 0,
+          "Generated": true
+        },
+        {
+          "Name": "RearRight",
+          "LSB": 1,
+          "BitCount": 1,
+          "DefaultValue": 0,
+          "ByteOrder": 0,
+          "Generated": true
+        }
+      ]
+    },
+    {
+      "Name": "LightControl",
+      "Id": 101,
+      "Dlc": 8,
+      "Channel": 1,
+      "Generated": true,
+      "Signals": [
+        {
+          "Name": "Headlights",
+          "LSB": 0,
+          "BitCount": 2,
+          "DefaultValue": 0,
+          "ByteOrder": 0,
+          "Generated": true
+        },
+        {
+          "Name": "Indicators",
+          "LSB": 2,
+          "BitCount": 2,
+          "DefaultValue": 0,
+          "ByteOrder": 0,
+          "Generated": true
+        }
+      ]
+    },
+    {
+      "Name": "BatteryMonitor",
+      "Id": 102,
+      "Dlc": 8,
+      "Channel": 1,
+      "Generated": true,
+      "Signals": [
+        {
+          "Name": "Voltage",
+          "LSB": 0,
+          "BitCount": 16,
+          "DefaultValue": 12000,
+          "ByteOrder": 0,
+          "Generated": true
+        }
+      ]
+    },
+    {
+      "Name": "GPSData",
+      "Id": 103,
+      "Dlc": 8,
+      "Channel": 1,
+      "Generated": false,
+      "Signals": [
+        {
+          "Name": "Latitude",
+          "LSB": 0,
+          "BitCount": 32,
+          "DefaultValue": 0,
+          "ByteOrder": 0,
+          "Generated": true
+        },
+        {
+          "Name": "Longitude",
+          "LSB": 32,
+          "BitCount": 32,
+          "DefaultValue": 0,
+          "ByteOrder": 0,
+          "Generated": true
+        }
+      ]
+    },
+    {
+      "Name": "SpeedSensor",
+      "Id": 104,
+      "Dlc": 8,
+      "Channel": 2,
+      "Generated": true,
+      "Signals": [
+        {
+          "Name": "VehicleSpeed",
+          "LSB": 0,
+          "BitCount": 16,
+          "DefaultValue": 0,
+          "ByteOrder": 1,
+          "Generated": true
+        }
+      ]
+    },
+    {
+      "Name": "CruiseControl",
+      "Id": 105,
+      "Dlc": 8,
+      "Channel": 2,
+      "Generated": true,
+      "Signals": [
+        {
+          "Name": "SetSpeed",
+          "LSB": 0,
+          "BitCount": 16,
+          "DefaultValue": 0,
+          "ByteOrder": 0,
+          "Generated": true
+        },
+        {
+          "Name": "Active",
+          "LSB": 16,
+          "BitCount": 1,
+          "DefaultValue": 0,
+          "ByteOrder": 0,
+          "Generated": true
+        }
+      ]
+    },
+    {
+      "Name": "TirePressure",
+      "Id": 106,
+      "Dlc": 8,
+      "Channel": 2,
+      "Generated": false,
+      "Signals": [
+        {
+          "Name": "FrontLeft",
+          "LSB": 0,
+          "BitCount": 8,
+          "DefaultValue": 32,
+          "ByteOrder": 0,
+          "Generated": true
+        },
+        {
+          "Name": "FrontRight",
+          "LSB": 8,
+          "BitCount": 8,
+          "DefaultValue": 32,
+          "ByteOrder": 0,
+          "Generated": false
+        }
+      ]
+    },
+    {
+      "Name": "ABSControl",
+      "Id": 107,
+      "Dlc": 8,
+      "Channel": 2,
+      "Generated": false,
+      "Signals": [
+        {
+          "Name": "ABSActive",
+          "LSB": 0,
+          "BitCount": 1,
+          "DefaultValue": 0,
+          "ByteOrder": 0,
+          "Generated": true
+        }
+      ]
+    },
+    {
+      "Name": "TransmissionData",
+      "Id": 108,
+      "Dlc": 8,
+      "Channel": 3,
+      "Generated": true,
+      "Signals": [
+        {
+          "Name": "GearPosition",
+          "LSB": 0,
+          "BitCount": 4,
+          "DefaultValue": 0,
+          "ByteOrder": 0,
+          "Generated": true
+        }
+      ]
+    },
+    {
+      "Name": "Odometer",
+      "Id": 109,
+      "Dlc": 8,
+      "Channel": 3,
+      "Generated": true,
+      "Signals": [
+        {
+          "Name": "Mileage",
+          "LSB": 0,
+          "BitCount": 32,
+          "DefaultValue": 0,
+          "ByteOrder": 1,
+          "Generated": true
+        }
+      ]
+    },
+    {
+      "Name": "EngineDiagnostics",
+      "Id": 110,
+      "Dlc": 8,
+      "Channel": 3,
+      "Generated": true,
+      "Signals": [
+        {
+          "Name": "ErrorCode",
+          "LSB": 0,
+          "BitCount": 16,
+          "DefaultValue": 0,
+          "ByteOrder": 0,
+          "Generated": true
+        }
+      ]
+    },
+    {
+      "Name": "RadarFront",
+      "Id": 111,
+      "Dlc": 8,
+      "Channel": 3,
+      "Generated": true,
+      "Signals": [
+        {
+          "Name": "ObjectDistance",
+          "LSB": 0,
+          "BitCount": 16,
+          "DefaultValue": 0,
+          "ByteOrder": 0,
+          "Generated": true
+        }
+      ]
+    },
+    {
+      "Name": "RadarRear",
+      "Id": 112,
+      "Dlc": 8,
+      "Channel": 3,
+      "Generated": true,
+      "Signals": [
+        {
+          "Name": "ObjectDistance",
+          "LSB": 0,
+          "BitCount": 16,
+          "DefaultValue": 0,
+          "ByteOrder": 0,
+          "Generated": true
+        }
+      ]
+    },
+    {
+      "Name": "ParkingAssist",
+      "Id": 113,
+      "Dlc": 8,
+      "Channel": 3,
+      "Generated": true,
+      "Signals": [
+        {
+          "Name": "SensorStatus",
+          "LSB": 0,
+          "BitCount": 8,
+          "DefaultValue": 0,
+          "ByteOrder": 0,
+          "Generated": true
+        }
+      ]
+    },
+    {
+      "Name": "DriverID",
+      "Id": 114,
+      "Dlc": 8,
+      "Channel": 2,
+      "Generated": true,
+      "Signals": [
+        {
+          "Name": "UserID",
+          "LSB": 0,
+          "BitCount": 32,
+          "DefaultValue": 1,
+          "ByteOrder": 0,
+          "Generated": true
+        }
+      ]
+    },
+    {
+      "Name": "InfotainmentStatus",
+      "Id": 115,
+      "Dlc": 8,
+      "Channel": 2,
+      "Generated": false,
+      "Signals": [
+        {
+          "Name": "AudioVolume",
+          "LSB": 0,
+          "BitCount": 8,
+          "DefaultValue": 10,
+          "ByteOrder": 0,
+          "Generated": true
+        }
+      ]
+    },
+    {
+      "Name": "WiperControl",
+      "Id": 116,
+      "Dlc": 8,
+      "Channel": 1,
+      "Generated": true,
+      "Signals": [
+        {
+          "Name": "WiperSpeed",
+          "LSB": 0,
+          "BitCount": 3,
+          "DefaultValue": 1,
           "ByteOrder": 0,
           "Generated": true
         }

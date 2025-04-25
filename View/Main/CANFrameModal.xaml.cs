@@ -19,6 +19,26 @@ public partial class CANFrameModal : Window
 
     private void SubmitFrameBtn_OnClick(object sender, RoutedEventArgs e)
     {
+        Frame.Name = Frame.Name?.Replace(" ", string.Empty);
+
+        if (Frame.Name == "")
+        {
+            MessageBox.Show("Frame Name is required.",
+            "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            return;
+        }
+
+        foreach(var signal in Frame.Signals)
+        {
+            signal.Name = signal.Name?.Replace(" ", string.Empty);
+            if (signal.Name == "")
+            {
+                MessageBox.Show("Signal Name is required.",
+                "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+            }
+        }
+
         Success = true;
         Close();
     }
