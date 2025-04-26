@@ -1,10 +1,15 @@
 {
   "Settings": {
     "Solution": {
-      "Path": "",
-      "Projects": []
+      "Path": "C:\\CanFrameBuilder.sln",
+      "Projects": [
+        {
+          "ProjectName": "CanFrameBuilder",
+          "CsProjectPath": "C:\\CanFrameBuilder.csproj"
+        }
+      ]
     },
-    "OutputDirectory": "",
+    "OutputDirectory": "C:\\",
     "Imports": "Vector.CANoe.Runtime Vector.CANoe.TFS",
     "AddNamespace": true,
     "AddToProject": true,

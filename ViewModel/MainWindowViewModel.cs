@@ -147,6 +147,7 @@ public class MainWindowViewModel : ViewModelBase
         {
             var generator = new SourceCodeGenerator(Settings);
             generator.Generate([.. Frames]);
+            MessageBox.Show($"Generation of {Frames.Count} element(s) finished.", "Generation Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         else
         {

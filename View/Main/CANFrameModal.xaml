@@ -9,8 +9,8 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="Manage CAN Frame" 
-        Height="580" Width="650" 
-        MinHeight="580" MinWidth="650">
+        Height="550" Width="650" 
+        MinHeight="550" MinWidth="650">
 
     <Window.Resources>
         <ObjectDataProvider x:Key="byteOrderEnum" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">

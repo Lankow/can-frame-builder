@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CanFrameBuilder.ViewModel"
         mc:Ignorable="d"
-        Title="Settings" Height="720" Width="400" MinWidth="400" MinHeight="700">
+        Title="Settings" 
+        Height="550" MinHeight="550"
+        Width="600" MinWidth="600">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
